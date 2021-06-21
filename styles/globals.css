@@ -2,8 +2,9 @@ html,
 body {
   padding: 0;
   margin: 0;
+  height: 100%;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -14,3 +15,21 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* @font-face {
+  font-family: "Tempest";
+  src: url("/assets/fonts/tempestapacheexpand.ttf");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+} */
+@font-face {
+  font-family: "Tempest";
+  src: url("/assets/fonts/tempestapacheexpandital.ttf") format("truetype"),url('/assets/fonts/tempestapacheexpandital.woff') format("woff"),
+  url('/assets/fonts/tempestapacheexpandital.eot') format("eot"),
+  url('/assets/fonts/tempestapacheexpandital.svg') format("svg");
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+}
+
