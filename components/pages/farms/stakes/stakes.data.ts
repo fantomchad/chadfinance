@@ -2,7 +2,7 @@ export const stakesdata = [
     {
         title: "Chad",
         first: "chad",
-        apy: 2000.0,
+        apy: 696969.0,
         approved: true,
         earn: "Chad",
         earned: 0,

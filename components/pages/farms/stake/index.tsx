@@ -31,7 +31,7 @@ function Stake({ farm }) {
 
             <div tw="flex flex-col -space-y-2 text-lg">
                 <span>
-                    APY: {current.apy}%
+                    APY: 420420{current.apy}%
                 </span>
                 <span>
                     EARN: {current.earn}

@@ -191,6 +191,18 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50
     },
+    {
+        first: "TEST",
+        second: "TEST",
+        apy: 696969.0,
+        approved: true,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
 
 
 
