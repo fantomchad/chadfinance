@@ -14,7 +14,7 @@ function Nav() {
     const path = router.asPath
     const [toggle, setToggle] = useState(false)
     return (
-        <div tw="flex justify-between items-center background-color[#004FCE] font-family[tempest] text-2xl px-4 md:px-8 py-1">
+        <div tw="flex justify-between items-center background-color[#004FCE] font-family[Tempest] text-2xl px-4 md:px-8 py-1">
             <div tw="hidden md:block">
                 <Logo />
             </div>

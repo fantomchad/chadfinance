@@ -1,12 +1,16 @@
 import tw from "twin.macro"
+import Link from "next/link"
 
 function Hero() {
     return (
         <div>
             <div tw="md:flex flex-col items-center hidden">
                 <img tw="z-10" src="/assets/images/CHAD2.svg" alt="" />
-                <div tw=" flex flex-col items-center text-black border-4 border-black bg-white rounded-3xl px-24 py-8 margin-top[-93px]">
-                    <span tw="text-7xl">FUCKING BUY CHAD </span>
+                <div tw=" flex text-7xl flex-col items-center text-black border-4 cursor-pointer border-black bg-white rounded-3xl px-24 py-8 margin-top[-93px] hover:(background-color[#004FCE] text-white)">
+                    <a href="https://exchange.paintswap.finance/#/swap?outputCurrency=0xCcE93540b80ABF71B66E0a44fd71E322cE9C4D9e" target="_blank">
+                        FUCKING BUY CHAD
+                    </a>
+
                 </div>
             </div>
             <div tw="flex flex-col space-y-6 width[30%] font-size[28px] leading-6 tracking-tighter text-white z-20 absolute top-16 left-8">

@@ -4,7 +4,7 @@ import SocialIcon from "../../../social"
 
 function HeroSection() {
     return (
-        <div tw="flex relative flex-1 items-center justify-center  py-12 px-24">
+        <div tw="flex relative flex-1 items-center justify-center  py-12 px-24 bg-gray-300">
             <div tw="background-color[#004FCE] rounded-3xl h-full w-full font-family[tempest] py-8">
                 {/* top */}
                 <div tw="flex items-center">

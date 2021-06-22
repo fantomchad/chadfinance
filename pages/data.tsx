@@ -7,7 +7,7 @@ import Nav from '../components/nav'
 
 export default function Data() {
     return (
-        <div tw="font-family[tempest] height[100vh] md:hidden">
+        <div tw="font-family[Tempest] height[100vh] md:hidden">
             <Head>
                 <title>Data | Chad Finance</title>
                 <meta name="description" content="Chad Finance" />

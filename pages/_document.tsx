@@ -15,23 +15,23 @@ class MyDocument extends Document {
                     />
                     <link
                         rel="preload"
-                        href="/assets/fonts/tempestapacheexpandital.woff"
+                        href="/assets/fonts/tempest/tempestapacheexpandital-webfont.woff"
                         as="font"
                         type="font/woff"
                         crossOrigin=""
                     />
                     <link
                         rel="preload"
-                        href="/assets/fonts/tempestapacheexpandital.svg"
+                        href="/assets/fonts/tempest/tempestapacheexpandital-webfont.woff2"
                         as="font"
-                        type="font/svg"
+                        type="font/woff2"
                         crossOrigin=""
                     />
                     <link
                         rel="preload"
-                        href="/assets/fonts/tempestapacheexpandital.eot"
+                        href="/assets/fonts/Bangers.ttf"
                         as="font"
-                        type="font/eot"
+                        type="font/truetype"
                         crossOrigin=""
                     />
                 </Head>

@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import tw from 'twin.macro'
-import Logo from '../../components/logo'
 import Nav from '../../components/nav'
 import Hero from '../../components/pages/chad/hero'
 import MobHero from '../../components/pages/home/mobhero'
@@ -8,7 +7,7 @@ import SocialIcon from '../../components/social'
 
 export default function Home() {
     return (
-        <div tw="font-family[tempest] min-h-screen max-h-screen background-color[#004FCE] md:bg-white">
+        <div tw="font-family[Tempest] min-h-screen max-h-screen background-color[#004FCE] md:bg-white">
             <Head>
                 <title>Chad | Chad Finance</title>
                 <meta name="description" content="Chad | Chad Finance" />

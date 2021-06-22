@@ -12,7 +12,7 @@ export default function Home() {
 
     const [isStake, setStake] = useState(false)
     return (
-        <div tw="font-family[tempest] min-h-screen max-h-screen">
+        <div tw="font-family[Tempest] min-h-screen max-h-screen">
             <Head>
                 <title>Farms | Chad Finance</title>
                 <meta name="description" content="Chad Finance" />

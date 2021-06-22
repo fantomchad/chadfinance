@@ -4,7 +4,7 @@ import { farmsdata } from './farms.data'
 
 function Farms() {
     return (
-        <div tw="p-4 flex flex-shrink-0 flex-wrap items-center justify-evenly">
+        <div tw="py-4 px-6 flex flex-shrink-0 flex-wrap items-center justify-evenly">
             {
                 farmsdata.map((item, index) => (
                     <Stake key={index} farm={item} />

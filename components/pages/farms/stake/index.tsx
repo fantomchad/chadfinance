@@ -10,11 +10,11 @@ function Stake({ farm }) {
 
     return (
 
-        <div tw="flex  flex-col border-width[6px] bg-white border-color[#004FCE] space-y-2 box-shadow[0px 0px 9px 3px rgba(0,0,0,0.75)] p-2 rounded-3xl mb-16">
+        <div tw="flex  flex-col justify-evenly flex-grow md:flex-grow-0 width[330px] md:width[350px] md:height[520px]  border-width[6px] bg-white border-color[#004FCE] space-y-2 box-shadow[0px 0px 9px 3px rgba(0,0,0,0.75)] px-4 py-4 rounded-3xl mb-16">
             {/* Farm Logos  */}
             <div tw="flex items-center justify-center">
-                <div tw="flex items-center">
-                    <img src={`/assets/images/farms/` + current.first + `.svg`} alt="" />
+                <div tw="flex items-center ">
+                    <img tw="" src={`/assets/images/farms/` + current.first + `.svg`} alt="" />
                     <img tw="-ml-4" src={`/assets/images/farms/` + current.second + `.svg`} alt="" />
                 </div>
             </div>
@@ -27,7 +27,7 @@ function Stake({ farm }) {
                     {current.multiplier}X
                 </div>
             </div>
-            <span tw="text-blue-700 text-3xl text-center px-2">{current.title} LP</span>
+            <span tw="truncate text-blue-700 text-3xl text-center px-2">{current.first}-{current.second} LP</span>
 
             <div tw="flex flex-col -space-y-2 text-lg">
                 <span>
@@ -53,11 +53,11 @@ function Stake({ farm }) {
                 </div>
             </div>
 
-            <span tw="text-blue-700 text-xl"> {current.title} LP staked</span>
+            <span tw="text-blue-700 text-xl"> {current.first}-{current.second} LP staked</span>
 
-            <div tw="px-2">
+            <div tw="">
                 {!current.approved &&
-                    <div tw=" flex items-center justify-center cursor-pointer width[100%] font-size[20px] text-white border-2 border-color[#004FCE] background-color[#004FCE] py-1 px-2 md:px-8 rounded-lg hover:(bg-white color[#004FCE]) md:border-4">
+                    <div tw=" flex items-center justify-center cursor-pointer width[100%] font-size[20px] text-white border-2 border-color[#004FCE] background-color[#004FCE] py-1  rounded-lg hover:(bg-white color[#004FCE]) md:border-4">
                         Approve Contract
                     </div>
                 }

@@ -9,7 +9,7 @@ import SocialIcon from '../components/social'
 
 export default function Home() {
   return (
-    <div tw="font-family[tempest] min-h-screen max-h-screen">
+    <div tw="font-family[Tempest] min-h-screen max-h-screen">
       <Head>
         <title>Chad Finance</title>
         <meta name="description" content="Chad Finance" />
@@ -22,7 +22,7 @@ export default function Home() {
         />
       </Head>
 
-      <div tw="flex flex-col height[100vh] ">
+      <div tw="flex flex-col  ">
         <Nav />
 
         {/* desktop  */}
@@ -32,8 +32,8 @@ export default function Home() {
 
         {/* mobile */}
 
-        <div tw="flex flex-col h-full background-color[#004FCE] items-center space-y-6 md:hidden py-2 px-2">
-          <div tw="flex flex-col items-center">
+        <div tw="flex flex-col justify-center items-center space-y-6 md:hidden py-2 px-2">
+          <div tw="flex flex-col items-center justify-between">
 
             <img tw="z-10 w-full md:hidden" src="/assets/images/CHADLight.svg" alt="" />
             <div tw=" flex flex-col items-center bg-white text-black rounded-xl py-6 px-2 margin-top[-27px] md:text-white  md:background-color[#004FCE] md:rounded-3xl md:px-24 md:py-8 md:margin-top[-44px]">
@@ -42,7 +42,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div tw="flex px-2 space-x-2 ">
+          <div tw="flex items-center px-2 space-x-2 ">
             <Button text="DATA" link="/data" />
             <Button text="FARMS" link="/farms" />
             <Button text="ABOUT" link="/chad" />
@@ -51,9 +51,9 @@ export default function Home() {
           <div tw="flex flex-col items-center space-y-2">
             <img tw="w-28" src="/assets/icons/CHADLargeLight.svg" alt="" />
             <div tw="border-2 border-white rounded-xl py-2 px-3 text-3xl text-white hover:(bg-white color[#004FCE])">
-              <Link href="/buy">
+              <a href="https://exchange.paintswap.finance/#/swap?outputCurrency=0xCcE93540b80ABF71B66E0a44fd71E322cE9C4D9e" target="_blank">
                 BUY $CHAD
-              </Link>
+              </a>
             </div>
           </div>
           <SocialIcon />

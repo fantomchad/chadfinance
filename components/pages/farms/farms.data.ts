@@ -1,6 +1,17 @@
 export const farmsdata = [
     {
-        title: "Brush-Chad",
+        first: "ftm",
+        second: "chad",
+        apy: 2000.0,
+        approved: true,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
         first: "brush",
         second: "chad",
         apy: 2000.0,
@@ -13,21 +24,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
-        second: "chad",
-        apy: 2000.0,
-        approved: true,
-        earn: "Chad",
-        earned: 0,
-        staked: 0,
-        fee: 0,
-        liquidity: 1000000,
-        multiplier: 50
-    },
-    {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "usdc",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -39,8 +36,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "bomb",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -52,8 +48,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "xsteak",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -65,8 +60,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "tomb",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -78,8 +72,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "cztears",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -91,8 +84,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "shib",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -104,8 +96,19 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "ftm",
+        second: "shib",
+        apy: 2000.0,
+        approved: false,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
+        first: "atari",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -117,8 +120,7 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "phant",
         second: "chad",
         apy: 2000.0,
         approved: false,
@@ -130,8 +132,55 @@ export const farmsdata = [
         multiplier: 50
     },
     {
-        title: "Brush-Chad",
-        first: "brush",
+        first: "just",
+        second: "chad",
+        apy: 2000.0,
+        approved: false,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
+        first: "opera",
+        second: "chad",
+        apy: 2000.0,
+        approved: false,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
+        first: "ifusd",
+        second: "chad",
+        apy: 2000.0,
+        approved: false,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
+        first: "safepapillon",
+        second: "chad",
+        apy: 2000.0,
+        approved: false,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50
+    },
+    {
+        first: "yoro",
         second: "chad",
         apy: 2000.0,
         approved: false,
