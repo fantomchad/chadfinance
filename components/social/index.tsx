@@ -35,7 +35,7 @@ function SocialIcon() {
             </div>
             <div tw="flex flex-row justify-center space-x-4 md:hidden">
                 {socialiconsdata.map((item, index) =>
-                    <div key={index}>
+                    <div key={index} >
                         <a href={item.link}>
                             <div tw="p-2 color[#004FCE] rounded-full flex fill-current items-center justify-center bg-white w-11 h-11 hover:(bg-black text-white)">
                                 {icons[index]}
