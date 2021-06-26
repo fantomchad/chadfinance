@@ -1,9 +1,24 @@
 import tw from "twin.macro"
 import Counter from "../counter"
 import SocialIcon from "../../../social"
+import getChadBurn from '../../../web3/ChadToken'
+import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import { EtherscanProvider, Web3Provider } from '@ethersproject/providers'
+
+function getLibrary(provider: any): Web3Provider {
+    const library = new Web3Provider(provider)
+    library.pollingInterval = 12000
+    return library
+  }
 
 function HeroSection() {
+    const CHADBurnt: any = getChadBurn()
+    // console.log(CHADBurnt)
+    
+
     return (
+        <Web3ReactProvider getLibrary={getLibrary}>
+        <CHADBurnt/>
         <div tw="flex relative flex-1 items-center justify-center  py-12 px-24 bg-gray-300">
             <div tw="background-color[#004FCE] rounded-3xl h-full w-full font-family[tempest] py-8">
                 {/* top */}
@@ -37,6 +52,7 @@ function HeroSection() {
                 <SocialIcon />
             </div>
         </div>
+        </Web3ReactProvider>
     )
 }
 
