@@ -11,4 +11,8 @@ export const navdata = [
         title: "$chad",
         tag: "/chad"
     },
+    {
+        title: "test",
+        tag: "/test"
+    },
 ]
