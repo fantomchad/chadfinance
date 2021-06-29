@@ -1,10 +1,22 @@
 import tw from "twin.macro"
+import React from 'react';
+import { Web3ReactProvider, useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
+import {
+    NoEthereumProviderError,
+    UserRejectedRequestError as UserRejectedRequestErrorInjected
+} from '@web3-react/injected-connector'
+import { Web3Provider } from '@ethersproject/providers'
+// import { useEagerConnect, useInactiveListener } from '../web3/hooks'
+import { injected } from '../web3/connector'
+import { useState, useEffect } from 'react'
+import { ethers } from "ethers";
+import ConnectMetamask from "../web3/ConnectWeb3"
 
-function ConnectWallet() {
+export function ConnectWallet() {
     return (
         <div tw=" flex flex-col py-4 bg-white opacity-100 border-4 rounded-xl border-black" >
             <span tw="border-b-2 border-black text-center" >Connect Wallet</span>
-            <div tw="flex items-center justify-between border-b-2 cursor-pointer bg-white hover:bg-black hover:text-white border-black p-2">
+            <div onClick={ConnectMetamask} tw="flex items-center justify-between border-b-2 cursor-pointer bg-white hover:bg-black hover:text-white border-black p-2">
                 <span tw="w-52 leading-5 text-center ">Connect Via Metamask</span>
                 <img tw="w-12" src="/assets/icons/metamask.svg" alt="" />
             </div>
@@ -19,4 +31,3 @@ function ConnectWallet() {
     )
 }
 
-export default ConnectWallet

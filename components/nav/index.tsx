@@ -5,9 +5,15 @@ import { navdata } from "./nav.data"
 import Logo from "../logo"
 import Back from "../back"
 import Popup from "../popup"
-import ConnectWallet from "../connectwallet"
-
+import { ConnectWallet } from "../connectwallet"
 import { useState } from "react"
+
+import { UserWallet } from "../web3/ConnectWeb3"
+
+const walletAddressq = "not connected"
+
+
+
 
 function Nav() {
     const router = useRouter()
@@ -38,8 +44,8 @@ function Nav() {
                         </div>
                     )}
                     <div tw="border hover:bg-gray-900 border-white border-solid rounded-lg px-6 text-center text-base cursor-pointer" onClick={() => setToggle(true)}>
-                        <span tw="text-white text-xl md:text-4xl">
-                            0xas..819
+                        <span id="user_wallet" tw="text-white text-xl md:text-4xl">
+                               Not Connected
                         </span>
                     </div>
                 </div>

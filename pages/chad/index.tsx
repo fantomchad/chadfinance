@@ -6,6 +6,7 @@ import MobHero from '../../components/pages/home/mobhero'
 import SocialIcon from '../../components/social'
 
 export default function Home() {
+    const foo = "0x00"
     return (
         <div tw="font-family[Tempest] min-h-screen max-h-screen background-color[#004FCE] md:bg-white">
             <Head>
