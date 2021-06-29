@@ -4,49 +4,14 @@ import {
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected
 } from '@web3-react/injected-connector'
-// import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector'
-// import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector'
 import { Web3Provider } from '@ethersproject/providers'
 import { formatEther } from '@ethersproject/units'
 
 import { useEagerConnect, useInactiveListener } from './hooks'
-import {
-  injected
-//   network,
-//   walletconnect,
-//   walletlink,
-//   ledger,
-//   trezor,
-//   lattice,
-//   frame,
-//   authereum,
-//   fortmatic,
-//   magic,
-//   portis,
-//   torus
-} from './connectors'
+import {injected} from './connectors'
 import { Spinner } from './spinner'
 
-// const ConnectorNames = {
-//   Injected = 'Injected'
 
-// }
-
-// const connectorsByName = {
-//   [ConnectorNames.Injected]: injected
-// //   [ConnectorNames.Network]: network,
-// //   [ConnectorNames.WalletConnect]: walletconnect,
-// //   [ConnectorNames.WalletLink]: walletlink,
-// //   [ConnectorNames.Ledger]: ledger,
-// //   [ConnectorNames.Trezor]: trezor,
-// //   [ConnectorNames.Lattice]: lattice,
-// //   [ConnectorNames.Frame]: frame,
-// //   [ConnectorNames.Authereum]: authereum,
-// //   [ConnectorNames.Fortmatic]: fortmatic,
-// //   [ConnectorNames.Magic]: magic,
-// //   [ConnectorNames.Portis]: portis,
-// //   [ConnectorNames.Torus]: torus
-// }
 
 function getErrorMessage(error) {
   if (error instanceof NoEthereumProviderError) {
@@ -353,120 +318,7 @@ function App() {
             Sign Message
           </button>
         )}
-        {/* {!!(connector === connectorsByName[ConnectorNames.Network] && chainId) && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).changeChainId(chainId === 1 ? 4 : 1)
-            }}
-          >
-            Switch Networks
-          </button>
-        )}
-        {connector === connectorsByName[ConnectorNames.WalletConnect] && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).close()
-            }}
-          >
-            Kill WalletConnect Session
-          </button>
-        )}
-        {connector === connectorsByName[ConnectorNames.WalletLink] && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).close()
-            }}
-          >
-            Kill WalletLink Session
-          </button>
-        )}
-        {connector === connectorsByName[ConnectorNames.Fortmatic] && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).close()
-            }}
-          >
-            Kill Fortmatic Session
-          </button>
-        )}
-        {connector === connectorsByName[ConnectorNames.Magic] && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).close()
-            }}
-          >
-            Kill Magic Session
-          </button>
-        )} */}
-        {/* {connector === connectorsByName[ConnectorNames.Portis] && (
-          <>
-            {chainId !== undefined && (
-              <button
-                style={{
-                  height: '3rem',
-                  borderRadius: '1rem',
-                  cursor: 'pointer'
-                }}
-                onClick={() => {
-                  ;(connector as any).changeNetwork(chainId === 1 ? 100 : 1)
-                }}
-              >
-                Switch Networks
-              </button>
-            )}
-            <button
-              style={{
-                height: '3rem',
-                borderRadius: '1rem',
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                ;(connector as any).close()
-              }}
-            >
-              Kill Portis Session
-            </button>
-          </> */}
-        {/* )} */}
-        {/* {connector === connectorsByName[ConnectorNames.Torus] && (
-          <button
-            style={{
-              height: '3rem',
-              borderRadius: '1rem',
-              cursor: 'pointer'
-            }}
-            onClick={() => {
-              ;(connector as any).close()
-            }}
-          >
-            Kill Torus Session
-          </button>
-        )} */}
+        
       </div>
     </>
   )
