@@ -3,42 +3,54 @@ import { useState, useEffect } from 'react'
 
 
 
-// export function UserWallet() {
-//     let user = "not connected"
-
-//     if (window.ethereum) {
-//         ethereum.enable()
-//         const provider = new ethers.providers.Web3Provider(window.ethereum)
-//         user = window.ethereum.selectedAddress
-//     }
-//     else {
-
-//     }
-//     return (
-//             user
-//         )
-// }
-
-
-export default async function ConnectMetamask() {
+export async function ConnectMetamask() {
     let provider = null
 
     if (window.ethereum) {
-        ethereum.enable()
+        await ethereum.enable()
         provider = new ethers.providers.Web3Provider(window.ethereum)
-        alert(provider)
+        console.log('llosdsds')
 
     } else {
         alert("Metamask not detected")
     }
+    return { provider, account:0 || "" };
 
-    // if (provider != null) {
-    //     let user_wallet = window.ethereum.selectedAddress;
-    //     var walletOutput = user_wallet.substring(0, 5)
-    //     console.log(walletOutput)
-    //     document.getElementById("user_wallet").textContent = walletOutput;
-    // }
 }
 
+export function SubscribeToAccount(
+    ethers,
+    callback
+){
+    const id = setInterval(async () => {
+        try {
+          const accounts = await ethers.providers.Web3Provider(window.ethereum)
+          callback(null, accounts);
+        } catch (error) {
+          callback(error, null);
+        }
+      }, 1000);
+    
+      return () => {
+        clearInterval(id);
+      };
+    }
 
 
+    export function subscribeToNetId(
+        web3,
+        callback
+      ) {
+        const id = setInterval(async () => {
+          try {
+            const netId = await web3.eth.net.getId();
+            callback(null, netId);
+          } catch (error) {
+            callback(error, null);
+          }
+        }, 1000);
+      
+        return () => {
+          clearInterval(id);
+        };
+      }

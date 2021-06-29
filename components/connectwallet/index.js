@@ -10,9 +10,29 @@ import { Web3Provider } from '@ethersproject/providers'
 import { injected } from '../web3/connector'
 import { useState, useEffect } from 'react'
 import { ethers } from "ethers";
-import ConnectMetamask from "../web3/ConnectWeb3"
+import {ConnectMetamask} from "../web3/ConnectWeb3"
+import { useWeb3Context } from "../contexts/web3";
+import useAsync from "../useAsync";
 
 export function ConnectWallet() {
+
+    const { state: { account }, updateAccount } = useWeb3Context()
+    const { pending, error, call } = useAsync(ConnectMetamask)
+    // @ts-ignore
+
+    async function ConnectMetamask() {
+        const { error, data } = await call(null);
+
+        if (error) {
+            // console.error(error);
+            updateAccount(data);
+
+        }
+        if (data) {
+            updateAccount(data);
+        }
+
+    }
     return (
         <div tw=" flex flex-col py-4 bg-white opacity-100 border-4 rounded-xl border-black" >
             <span tw="border-b-2 border-black text-center" >Connect Wallet</span>
@@ -30,4 +50,3 @@ export function ConnectWallet() {
         </div>
     )
 }
-

@@ -7,10 +7,11 @@ import Back from "../back"
 import Popup from "../popup"
 import { ConnectWallet } from "../connectwallet"
 import { useState } from "react"
+import { useWeb3Context } from '../contexts/web3'
+import useAsync from "../useAsync"
+import { ConnectMetamask } from "../web3/ConnectWeb3"
 
-import { UserWallet } from "../web3/ConnectWeb3"
 
-const walletAddressq = "not connected"
 
 
 
@@ -19,6 +20,14 @@ function Nav() {
     const router = useRouter()
     const path = router.asPath
     const [toggle, setToggle] = useState(false)
+
+
+
+    const { state: { account }, updateAccount } = useWeb3Context()
+    // @ts-ignore
+
+
+
     return (
         <div tw="flex justify-between items-center background-color[#004FCE] font-family[Tempest] text-2xl px-4 md:px-8 py-1">
             <div tw="hidden md:block">
@@ -45,7 +54,8 @@ function Nav() {
                     )}
                     <div tw="border hover:bg-gray-900 border-white border-solid rounded-lg px-6 text-center text-base cursor-pointer" onClick={() => setToggle(true)}>
                         <span id="user_wallet" tw="text-white text-xl md:text-4xl">
-                               Not Connected
+                            {account}
+                          
                         </span>
                     </div>
                 </div>

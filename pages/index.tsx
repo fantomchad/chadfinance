@@ -7,59 +7,70 @@ import Nav from '../components/nav'
 import Button from '../components/button'
 import SocialIcon from '../components/social'
 
+import { Provider as Web3Provider, Updater as Web3Updater, useWeb3Context } from '../components/contexts/web3'
+import useAsync from '../components/useAsync'
+import { ConnectMetamask } from '../components/web3/ConnectWeb3'
+
 export default function Home() {
+
+
+
   return (
-    <div tw="font-family[Tempest] min-h-screen max-h-screen">
-      <Head>
-        <title>Chad Finance</title>
-        <meta name="description" content="Chad Finance" />
-        <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="preload"
-          href="/assets/fonts/tempestapacheexpandital.ttf"
-          as="font"
-          crossOrigin="anonymous"
-        />
-      </Head>
+    <Web3Provider>
+      <Web3Updater>
+        <div tw="font-family[Tempest] min-h-screen max-h-screen">
+          <Head>
+            <title>Chad Finance</title>
+            <meta name="description" content="Chad Finance" />
+            <link rel="icon" href="/favicon.ico" />
+            <link
+              rel="preload"
+              href="/assets/fonts/tempestapacheexpandital.ttf"
+              as="font"
+              crossOrigin="anonymous"
+            />
+          </Head>
 
-      <div tw="flex flex-col  ">
-        <Nav />
+          <div tw="flex flex-col  ">
+            <Nav />
 
-        {/* desktop  */}
-        <div tw="hidden md:block">
-          <HeroSection />
-        </div>
-
-        {/* mobile */}
-
-        <div tw="flex flex-col justify-center items-center space-y-6 md:hidden py-2 px-2">
-          <div tw="flex flex-col items-center justify-between">
-
-            <img tw="z-10 w-full md:hidden" src="/assets/images/CHADLight.svg" alt="" />
-            <div tw=" flex flex-col items-center bg-white text-black rounded-xl py-6 px-2 margin-top[-27px] md:text-white  md:background-color[#004FCE] md:rounded-3xl md:px-24 md:py-8 md:margin-top[-44px]">
-              <span tw="text-3xl md:text-7xl">WHAT THE FUCK </span>
-              <span tw=" font-size[22px] tracking-tighter md:text-5xl">DO YOU WANT TO DO TODAY?</span>
+            {/* desktop  */}
+            <div tw="hidden md:block">
+              <HeroSection />
             </div>
-          </div>
 
-          <div tw="flex items-center px-2 space-x-2 ">
-            <Button text="DATA" link="/data" />
-            <Button text="FARMS" link="/farms" />
-            <Button text="ABOUT" link="/chad" />
-          </div>
+            {/* mobile */}
 
-          <div tw="flex flex-col items-center space-y-2">
-            <img tw="w-28" src="/assets/icons/CHADLargeLight.svg" alt="" />
-            <div tw="border-2 border-white rounded-xl py-2 px-3 text-3xl text-white hover:(bg-white color[#004FCE])">
-              <a href="https://exchange.paintswap.finance/#/swap?outputCurrency=0xCcE93540b80ABF71B66E0a44fd71E322cE9C4D9e" target="_blank">
-                BUY $CHAD
-              </a>
+            <div tw="flex flex-col justify-center items-center space-y-6 md:hidden py-2 px-2">
+              <div tw="flex flex-col items-center justify-between">
+
+                <img tw="z-10 w-full md:hidden" src="/assets/images/CHADLight.svg" alt="" />
+                <div tw=" flex flex-col items-center bg-white text-black rounded-xl py-6 px-2 margin-top[-27px] md:text-white  md:background-color[#004FCE] md:rounded-3xl md:px-24 md:py-8 md:margin-top[-44px]">
+                  <span tw="text-3xl md:text-7xl">WHAT THE FUCK </span>
+                  <span tw=" font-size[22px] tracking-tighter md:text-5xl">DO YOU WANT TO DO TODAY?</span>
+                </div>
+              </div>
+
+              <div tw="flex items-center px-2 space-x-2 ">
+                <Button text="DATA" link="/data" />
+                <Button text="FARMS" link="/farms" />
+                <Button text="ABOUT" link="/chad" />
+              </div>
+
+              <div tw="flex flex-col items-center space-y-2">
+                <img tw="w-28" src="/assets/icons/CHADLargeLight.svg" alt="" />
+                <div tw="border-2 border-white rounded-xl py-2 px-3 text-3xl text-white hover:(bg-white color[#004FCE])">
+                  <a href="https://exchange.paintswap.finance/#/swap?outputCurrency=0xCcE93540b80ABF71B66E0a44fd71E322cE9C4D9e" target="_blank">
+                    BUY $CHAD
+                  </a>
+                </div>
+              </div>
+              <SocialIcon />
             </div>
-          </div>
-          <SocialIcon />
-        </div>
 
-      </div>
-    </div>
+          </div>
+        </div>
+      </Web3Updater>
+    </Web3Provider>
   )
 }
