@@ -1,4 +1,3 @@
-import './App.css';
 import { UseWalletProvider } from 'use-wallet'
 import ChadRouter from './components/ChadRouter';
 
