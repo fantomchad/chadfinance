@@ -1,13 +1,19 @@
 import Counter from "./Counter"
 import SocialIcons from "./SocialIcons"
 
+import useEthBalance from "../hooks/useBalance" // <- IMPORT IT LIKE THIS
+
 const HeroSection: React.FC = () => {
   const containerStyles = {
     backgroundColor: "#004FCE",
     fontFamily: "Tempest"
   }
 
-  const TVL = "$12,000,000.00" // <- ADD REAL TVL HERE
+  const balance = useEthBalance() // <- CALL IT LIKE THIS
+  console.log(balance)
+
+  // SET IT TO A VARIABLE. CHECK IF IT'S NULL AND SHOW IT ONLY IF IT'S AVAILABLE
+  const TVL = balance ? balance.toString() : "Connect wallet" // <- ADD REAL TVL HERE
   const burned = "120,000.00" //<- ADD BURNED CHAD HERE
 
   return (
@@ -16,7 +22,7 @@ const HeroSection: React.FC = () => {
         {/* top */}
         <div className="flex items-center">
             {/* featured image */}
-            <div className="flex flex[2]">
+            <div className="flex">
                 <img src="/images/heroimage.svg" alt="" />
             </div>
 
@@ -24,7 +30,7 @@ const HeroSection: React.FC = () => {
             <div className="flex flex-1 items-start -ml-96">
                 <div className="flex items-center  flex-col">
                     <span className="text-3xl text-white">Fucking TVL</span>
-                    <Counter value={TVL} />
+                    <Counter value={TVL} /> {/* <- USE IT IN THE VIEW */}
                     <span className="text-3xl text-white">Fucking $Chad Burnt</span>
                     <Counter value={burned} />
                 </div>
