@@ -7,18 +7,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      <h1>Wallet</h1>
-      {wallet.status === 'connected' ? (
-        <div>
-          <button onClick={() => wallet.reset()}>disconnect</button>
-        </div>
-      ) : (
-        <div>
-          Connect:
-          <button onClick={() => wallet.connect()}>MetaMask</button>
-        </div>
-      )}
-      <WalletBalance />
+      <h1>Home</h1>
     </>
   )
 }
