@@ -2,6 +2,7 @@ import React from 'react'
 
 import Button from '../components/Button'
 import SocialIcons from '../components/SocialIcons'
+import HeroSection from '../components/HeroSection'
 
 const Home: React.FC = () => {
   const homeStyles = {
@@ -15,7 +16,7 @@ const Home: React.FC = () => {
 
         {/* desktop  */}
         <div className="hidden md:block">
-          {/* <HeroSection /> */}
+          <HeroSection />
         </div>
 
         {/* mobile */}

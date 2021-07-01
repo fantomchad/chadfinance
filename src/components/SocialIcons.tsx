@@ -43,20 +43,16 @@ const SocialIcons: React.FC = () => {
     color: "#004FCE"
   }
 
-  const hoverClasses = "bg-black text-white"
-  const desktopClasses = `p-2 rounded-full flex fill-current items-center justify-center bg-white w-11 h-11 ${hover ? hoverClasses : ""}`
-  const mobileClasses = `p-2 text-white rounded-full flex fill-current items-center justify-center  w-11 h-11 ${hover ? hoverClasses : ""}`
-
   return (
       <div style={iconStyle}>
           <div className="md:flex flex-col space-y-4 hidden fill-current">
               {socialIconsData.map((iconData, index) =>
-                <SocialIcon isMobile={false} iconData={iconData} icon={icons[index]} index={index} />
+                <SocialIcon isMobile={false} iconData={iconData} icon={icons[index]} key={index} />
               )}
           </div>
           <div className="flex flex-row justify-center space-x-4 md:hidden">
               {socialIconsData.map((iconData, index) =>
-                <SocialIcon isMobile={true} iconData={iconData} icon={icons[index]} index={index} />
+                <SocialIcon isMobile={true} iconData={iconData} icon={icons[index]} key={index} />
               )}
           </div>
       </div>
