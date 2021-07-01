@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWallet } from 'use-wallet'
 
-const Home: React.FC = () => {
+const Farms: React.FC = () => {
   const wallet = useWallet()
 
   return (
@@ -11,4 +11,4 @@ const Home: React.FC = () => {
   )
 }
 
-export default Home;
+export default Farms;
