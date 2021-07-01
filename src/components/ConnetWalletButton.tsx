@@ -23,7 +23,7 @@ const ConnnectWalletButton: React.FC = () => {
           </span>
       </div>
       <Popup toggle={toggle} setToggle={setToggle} showClosed={true}>
-          <ConnectWallet />
+          <ConnectWallet setToggle={setToggle} />
       </Popup>
     </>
   )

@@ -1,13 +1,21 @@
 import { useWallet } from 'use-wallet'
 
-const ConnectWallet: React.FC = () => {
+interface ConnectWalletProps {
+    setToggle: Function
+}
+
+const ConnectWallet: React.FC<ConnectWalletProps> = ({setToggle}) => {
     const wallet = useWallet()
+    const connectWallet = () => {
+        wallet.connect()
+        setToggle(false) // close the connect wallet popup
+    }
 
     return (
         <div className="flex flex-col py-4 bg-white opacity-100 border-4 rounded-xl border-black text-black" >
             <span className="border-b-2 border-black text-center" >Connect Wallet</span>
             <div
-                onClick={() => wallet.connect()} 
+                onClick={() => connectWallet()} 
                 className="flex items-center justify-between border-b-2 cursor-pointer bg-white text-black hover:bg-black hover:text-white border-black p-2">
                 <span className="w-52 leading-5 text-center ">Connect Via Metamask</span>
                 <img className="w-12" src="/icons/metamask.svg" alt="Metamask logo" />
