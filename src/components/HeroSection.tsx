@@ -1,7 +1,10 @@
-import Counter from "./Counter"
+import {CounterDollar, CounterChad} from "./Counter"
 import SocialIcons from "./SocialIcons"
 
-import useEthBalance from "../hooks/useBalance" // <- IMPORT IT LIKE THIS
+import {useFTMBalance, useChadBalance, useTokenBalance } from "../hooks/getTokens" // <- IMPORT IT LIKE THIS
+// import useChadBurnt from "../hooks/useTokens"
+
+
 
 const HeroSection: React.FC = () => {
   const containerStyles = {
@@ -9,12 +12,14 @@ const HeroSection: React.FC = () => {
     fontFamily: "Tempest"
   }
 
-  const balance = useEthBalance() // <- CALL IT LIKE THIS
-  console.log(balance)
+
+
+  const balance = useFTMBalance('0x0000000000000000000000000000000000000000') // <- CALL IT LIKE THIS
+  let chadBurnt = useChadBalance('0x0000000000000000000000000000000000000001')
 
   // SET IT TO A VARIABLE. CHECK IF IT'S NULL AND SHOW IT ONLY IF IT'S AVAILABLE
   const TVL = balance ? balance.toString() : "Connect wallet" // <- ADD REAL TVL HERE
-  const burned = "120,000.00" //<- ADD BURNED CHAD HERE
+  const burned = chadBurnt ? chadBurnt.toString(): "error" //<- ADD BURNED CHAD HERE
 
   return (
     <div className="flex relative flex-1 items-center justify-center  py-12 px-24 bg-gray-300">
@@ -30,9 +35,9 @@ const HeroSection: React.FC = () => {
             <div className="flex flex-1 items-start -ml-96">
                 <div className="flex items-center  flex-col">
                     <span className="text-3xl text-white">Fucking TVL</span>
-                    <Counter value={TVL} /> {/* <- USE IT IN THE VIEW */}
+                    <CounterDollar value={TVL}/> 
                     <span className="text-3xl text-white">Fucking $Chad Burnt</span>
-                    <Counter value={burned} />
+                    <CounterChad value={burned}/>
                 </div>
             </div>
         </div>
