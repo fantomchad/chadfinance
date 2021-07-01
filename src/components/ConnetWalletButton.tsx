@@ -9,7 +9,7 @@ const ConnnectWalletButton: React.FC = () => {
   const wallet = useWallet()
 
   let addressShort = ""
-  if (wallet.status === 'connected') {
+  if (wallet.status === 'connected' && wallet.account) {
     addressShort = wallet.account.substring(0, 4) + ".." + wallet.account.substring(39)
   }
 
