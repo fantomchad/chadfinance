@@ -1,10 +1,11 @@
 import {
   Link
-} from "react-router-dom";
+} from "react-router-dom"
 import { useLocation } from 'react-router-dom'
 
 import Logo from "./Logo"
 import Back from "./Back"
+import ConnnectWalletButton from "./ConnetWalletButton"
 
 const Nav: React.FC = () => {
   let path = useLocation().pathname;
@@ -36,15 +37,11 @@ const Nav: React.FC = () => {
               <Link to="/chad">$CHAD</Link>
             </li>
           </ul>
-          <div className="border hover:bg-gray-900 border-white border-solid rounded-lg px-6 text-center text-base cursor-pointer" >
-              <span className="text-white text-xl md:text-4xl">
-                  0xas..819
-              </span>
-          </div>
+          <ConnnectWalletButton />
         </div>
       </div>
     </nav>
   )
 }
-// onClick={() => setToggle(true)}
+
 export default Nav
