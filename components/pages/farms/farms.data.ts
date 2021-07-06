@@ -1,3 +1,4 @@
+
 export const farmsdata = [
     {
         first: "ftm",
@@ -9,7 +10,9 @@ export const farmsdata = [
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 0,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "brush",
@@ -21,175 +24,205 @@ export const farmsdata = [
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 1,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "usdc",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 2,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "bomb",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 4,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "xsteak",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 5,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "tomb",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 6,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "cztears",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 7,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "shib",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 8,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "ftm",
         second: "shib",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 9,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "atari",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 10,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "phant",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 11,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "just",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 13,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "opera",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 12,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "ifusd",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 14,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "safepapillon",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 15,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
     {
         first: "yoro",
         second: "chad",
         apy: 2000.0,
-        approved: false,
+        approved: true,
         earn: "Chad",
         earned: 0,
         staked: 0,
         fee: 0,
         liquidity: 1000000,
-        multiplier: 50
+        multiplier: 50,
+        pid: 16,
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
     },
 
 
