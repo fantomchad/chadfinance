@@ -12,7 +12,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 0,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "brush",
@@ -26,7 +27,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 1,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "usdc",
@@ -40,7 +42,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 2,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "bomb",
@@ -54,7 +57,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 4,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "xsteak",
@@ -68,7 +72,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 5,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "tomb",
@@ -82,7 +87,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 6,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "cztears",
@@ -96,7 +102,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 7,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "shib",
@@ -110,7 +117,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 8,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "ftm",
@@ -124,7 +132,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 9,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "atari",
@@ -138,7 +147,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 10,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "phant",
@@ -152,7 +162,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 11,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "just",
@@ -166,7 +177,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 13,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "opera",
@@ -180,7 +192,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 12,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "ifusd",
@@ -194,7 +207,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 14,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "safepapillon",
@@ -208,7 +222,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 15,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
     {
         first: "yoro",
@@ -222,7 +237,8 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 16,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a"
+        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpInWallet: 0
     },
 
 
