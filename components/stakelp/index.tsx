@@ -43,15 +43,16 @@ function StakeLp({ toggle, setToggle, FarmData }) {
     }
     checkbal()
 
-    var intervalId = window.setInterval(function(){
+    //THIS GOES INTO ENDLESS LOOP!!!!
+    // be careful 
 
-        while(!toggle){
-            console.log('uyayay')
-        }
-        clearInterval(intervalId) 
-
-
-      }, 2000);
+    // var intervalId = window.setInterval(function(){
+    //     while(toggle){
+    //         console.log('inside')
+    //     }
+    // console.log('outside')
+    //     clearInterval(intervalId) 
+    //   }, 2000);
 
     const maxLP = async () => {
         if (active) {

@@ -6,6 +6,7 @@ import { ethers, providers } from "ethers"
 import { useEffect, useState } from "react"
 
 
+
 function numFormatter(num) {
     if (num > 999 && num < 1000000) {
         return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
@@ -210,7 +211,7 @@ function SingleStake({ farm }) {
                 }
             </div>
             <Popup toggle={toggle} setToggle={setToggle}>
-                <StakeLp setToggle={setToggle} FarmData={current} />
+                <StakeLp setToggle={setToggle} FarmData={current} toggle={toggle} />
             </Popup>
         </div>
 

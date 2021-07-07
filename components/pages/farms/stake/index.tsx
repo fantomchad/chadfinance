@@ -214,7 +214,7 @@ export function Stake({ farm }) {
                 }
             </div>
             <Popup toggle={toggle} setToggle={setToggle}>
-                <StakeLp setToggle={setToggle} FarmData={current} />
+                <StakeLp setToggle={setToggle} FarmData={current} toggle={toggle} />
             </Popup>
         </div>
 
