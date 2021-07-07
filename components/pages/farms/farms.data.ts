@@ -27,7 +27,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 1,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0xaf7Ae01E65244F260eb5C8f0142eCF5d4434aA05",
         lpInWallet: 0
     },
     {
@@ -42,7 +42,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 2,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x698a49A0Bb3947897611A4C5e289FbeDB557D150",
         lpInWallet: 0
     },
     {
@@ -57,13 +57,13 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 4,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x2aCF18104FfCe06aC4B7DfB9C1FF539119D96B27",
         lpInWallet: 0
     },
     {
-        first: "xsteak",
+        first: "steak",
         second: "chad",
-        apy: 2000.0,
+        apy: "RETIRED",
         approved: true,
         earn: "Chad",
         earned: 0,
@@ -72,7 +72,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 5,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x9eDf4420016646372Ca48BC881F2059056083016",
         lpInWallet: 0
     },
     {
@@ -87,7 +87,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 6,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x777445A6E9DE0e7a2E38D091f76060Dd4c09cdd9",
         lpInWallet: 0
     },
     {
@@ -102,7 +102,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 7,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x2B932f3C08C73f4d698E1D91Bb838435bA7b4931",
         lpInWallet: 0
     },
     {
@@ -117,7 +117,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 8,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x5886A4566Dc8605DF9A477863D1A2aA9a4384143",
         lpInWallet: 0
     },
     {
@@ -132,7 +132,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 9,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x71020669C6cbeD08e511ecE3A28e5aF5eA0cB6aE",
         lpInWallet: 0
     },
     {
@@ -147,7 +147,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 10,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0xb7b3Ca37483117B797Db428948d9CAf79491E97C",
         lpInWallet: 0
     },
     {
@@ -162,22 +162,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 11,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
-        lpInWallet: 0
-    },
-    {
-        first: "just",
-        second: "chad",
-        apy: 2000.0,
-        approved: true,
-        earn: "Chad",
-        earned: 0,
-        staked: 0,
-        fee: 0,
-        liquidity: 1000000,
-        multiplier: 50,
-        pid: 13,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0xE23e37Da043Cbfb66e7084231bfD24045F25fbBa",
         lpInWallet: 0
     },
     {
@@ -192,7 +177,22 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 12,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x2D6830DA43fAA5d60589DD0cF5a6f0CDAcf89d91 ",
+        lpInWallet: 0
+    },
+    {
+        first: "just",
+        second: "chad",
+        apy: 2000.0,
+        approved: true,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50,
+        pid: 13,
+        lpTokenAddress: "0xF096E1375a4200072D08993cd1d0C2A903EF57E7",
         lpInWallet: 0
     },
     {
@@ -207,7 +207,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 14,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x8a916b2d224C198278e7b58aDC27366B13094AfD",
         lpInWallet: 0
     },
     {
@@ -222,7 +222,7 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 15,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0x9EC8019f5B441448B2CCDCd2e6B8F5B0ae785AD7",
         lpInWallet: 0
     },
     {
@@ -237,7 +237,37 @@ export const farmsdata = [
         liquidity: 1000000,
         multiplier: 50,
         pid: 16,
-        lpTokenAddress: "0x55a00f4daf71e3ef4b385991b2bf23bd3bef627a",
+        lpTokenAddress: "0xB6De4Ab4446d03B0df6e312C53143370981D9385",
+        lpInWallet: 0
+    },
+    {
+        first: "xSteak",
+        second: "chad",
+        apy: 2000.0,
+        approved: true,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50,
+        pid: 17,
+        lpTokenAddress: "0x3932C0126d8Cc965A8C6068e32b08bCceaC5035b",
+        lpInWallet: 0
+    },
+    {
+        first: "SBRW",
+        second: "chad",
+        apy: 2000.0,
+        approved: true,
+        earn: "Chad",
+        earned: 0,
+        staked: 0,
+        fee: 0,
+        liquidity: 1000000,
+        multiplier: 50,
+        pid: 18,
+        lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
         lpInWallet: 0
     },
 
