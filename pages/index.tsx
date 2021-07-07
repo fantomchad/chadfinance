@@ -2,12 +2,27 @@ import Head from 'next/head'
 import tw from 'twin.macro'
 import HeroSection from '../components/pages/home/hero'
 import Link from "next/link"
+import React, { useEffect } from "react";
 
 import Nav from '../components/nav'
 import Button from '../components/button'
 import SocialIcon from '../components/social'
+import { useEagerConnect } from '../hooks/useEagerConnect'
+import { useWeb3React } from '@web3-react/core';
+
 
 export default function Home() {
+
+  const { active } = useWeb3React()
+
+  const connect = async () => {
+
+      useEagerConnect()
+
+  }
+  connect()
+
+
   return (
     <div tw="font-family[Tempest] min-h-screen max-h-screen">
       <Head>

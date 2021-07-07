@@ -19,6 +19,7 @@ const ConnectWallet: React.FC = () => {
     const activating = currentConnector === activatingConnector
     const connected = currentConnector === FantomConnector
     const disabled = !triedEager || !!activatingConnector || connected || !!error
+    // const disabled =  !!activatingConnector || connected || !!error
 
     useEffect(() => {
         if (activatingConnector && activatingConnector === connector) {

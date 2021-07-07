@@ -8,6 +8,7 @@ import Stakes from '../../components/pages/farms/stakes'
 import SocialIcon from "../../components/social"
 
 
+
 export default function Home() {
 
     const [isStake, setStake] = useState(false)

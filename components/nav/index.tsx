@@ -9,6 +9,8 @@ import ConnectWallet from "../connectwallet"
 
 import { useWeb3React } from '@web3-react/core'
 import { useState, useEffect } from "react"
+import { useEagerConnect } from '../../hooks/useEagerConnect'
+
 
 function Nav() {
     const router = useRouter()
