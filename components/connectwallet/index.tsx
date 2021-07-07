@@ -9,16 +9,10 @@ import { InjectedConnector } from "@web3-react/injected-connector"
 const ConnectWallet: React.FC = () => {
 
     const context = useWeb3React()
-    const { connector, library, chainId, account, activate, deactivate, active, error } = context
+    const { connector, activate } = context
     const [activatingConnector, setActivatingConnector] = useState<InjectedConnector | undefined>(undefined)
-    // const [account, setActivatingConnector] = useState("")
-
-    const triedEager = useEagerConnect()
     
     const currentConnector = FantomConnector
-    const activating = currentConnector === activatingConnector
-    const connected = currentConnector === FantomConnector
-    const disabled = !triedEager || !!activatingConnector || connected || !!error
 
     useEffect(() => {
         if (activatingConnector && activatingConnector === connector) {

@@ -9,6 +9,7 @@ import ConnectWallet from "../connectwallet"
 
 import { useWeb3React } from '@web3-react/core'
 import { useState, useEffect } from "react"
+import { useEagerConnect } from '../../hooks/useEagerConnect'
 
 function Nav() {
     const router = useRouter()
@@ -17,6 +18,7 @@ function Nav() {
     const [address, setAddress] = useState("")
 
     const { account } = useWeb3React()
+    useEagerConnect()
 
     useEffect(() => {
         if (account) {

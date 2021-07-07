@@ -8,19 +8,12 @@ import { ethers, providers } from "ethers"
 
 
 function Stake({ farm }) {
-
-
     const { account, active } = useWeb3React()
-
-
-
 
     const [toggle, setToggle] = useState(false)
     const [current, setCurrent] = useState(farm)
     const [lpTokenName, setLpTokenName] = useState('')
     let [chadEarned, setChadEarned] = useState('')
-
-
 
     const getLPInfo = async () => {
         if (active) {
@@ -39,10 +32,8 @@ function Stake({ farm }) {
             setChadEarned(formatBal)
             var roundedBal = parseFloat(formatBal).toFixed(3)
 
-            current.earned = roundedBal // EXAMPLE OF WHAT I AM TRYING TO DO
+            current.earned = roundedBal
             setCurrent(current)
-
-            // document.getElementById("chadEarned").innerText = roundedBal
         }
     }
     getLPInfo()
