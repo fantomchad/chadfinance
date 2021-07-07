@@ -8,16 +8,12 @@ import { ethers, providers } from "ethers"
 
 
 function Stake({ farm }) {
-
-
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
     const [current, setCurrent] = useState(farm)
     const [lpTokenName, setLpTokenName] = useState('')
     let [chadEarned, setChadEarned] = useState('')
-
-  
 
     const getLPInfo = async () => {
         if (active) {
