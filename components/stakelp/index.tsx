@@ -3,22 +3,11 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import { useState } from "react"
 import { farmsdata } from "../pages/farms/farms.data"
+import Stake from "../pages/farms/stake"
 
 
 
-// const sendEth = async () => {
-
-//     //@ts-ignore
-//     const provider = new ethers.providers.Web3Provider(window.ethereum)
-//     const signer = provider.getSigner()
-//     const tx = signer.sendTransaction({
-//         to: "0x000",
-//         value: ethers.utils.parseEther("1.0")
-
-//     });
-// }
-
-function StakeLp({ setToggle, FarmData }) {
+function StakeLp({ toggle, setToggle, FarmData }) {
 
     const { account, active } = useWeb3React()
     let [lpTokenBalance, setLpTokenBalance] = useState('')
@@ -32,6 +21,7 @@ function StakeLp({ setToggle, FarmData }) {
     const checkbal = async () => {
         if (active) {
 
+            // console.log('yoo')
             //@ts-ignore
             const lpAddress = FarmData.lpTokenAddress
             const minABI = [{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }]
@@ -52,6 +42,16 @@ function StakeLp({ setToggle, FarmData }) {
         }
     }
     checkbal()
+
+    var intervalId = window.setInterval(function(){
+
+        while(!toggle){
+            console.log('uyayay')
+        }
+        clearInterval(intervalId) 
+
+
+      }, 2000);
 
     const maxLP = async () => {
         if (active) {

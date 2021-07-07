@@ -217,7 +217,7 @@ export const farmsdata = [
         approved: false,
         earn: "Chad",
         earned: 0,
-        staked: 0,
+        staked: 69,
         fee: 0,
         liquidity: 1000000,
         multiplier: 50,

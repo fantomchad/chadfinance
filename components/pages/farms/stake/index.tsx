@@ -7,7 +7,19 @@ import { ethers, providers } from "ethers"
 
 
 
-function Stake({ farm }) {
+
+
+function numFormatter(num) {
+    if(num > 999 && num < 1000000){
+        return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+    }else if(num > 1000000){
+        return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+    }else if(num < 900){
+        return num; // if value < 1000, nothing to do
+    }
+}
+
+export function Stake({ farm }) {
 
     const { account, active } = useWeb3React()
 
@@ -39,23 +51,39 @@ function Stake({ farm }) {
             current.earned = roundedBal
 
             //Code to check the token allowance
-            const lpAbi = [ { "inputs": [ { "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" } ], "name": "allowance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" } ]
+            const lpAbi = [{ "inputs": [{ "internalType": "address", "name": "owner", "type": "address" }, { "internalType": "address", "name": "spender", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }]
             const lpContract = new ethers.Contract(current.lpTokenAddress, lpAbi, provider)
             const approved = await lpContract.allowance(account, chadMaster)
             let formatapprove = ethers.utils.formatUnits(approved, 18)
-            
+
             //Enable Approve contract button, we do this so that when we switch wallets the approve button is reset.
             current.approved = false
 
             //Check if allowance is more than 0, if >0 then disable "approve contract" button
-            if (parseFloat(formatapprove) > 0){
+            if (parseFloat(formatapprove) > 0) {
                 current.approved = true
             }
-            console.log('approved:', current.pid, formatapprove)
+            // console.log('approved:', current.pid, formatapprove)
+
+
+            // LP Staked 
+            let lpStaked = await chadMasterContract.userInfo(current.pid, account).then(amount => {
+                let formattedLPStaked = ethers.utils.formatUnits(amount.amount, 18)
+                var roundedBal = parseFloat(formattedLPStaked).toFixed(2)
+                let abbreviated = numFormatter(roundedBal)
+                console.log('lpstaked ', current.pid, ':', abbreviated)
+
+                if ( abbreviated > 0 && abbreviated < 0.001){
+                    let smallValue = '< 0.001'
+                    current.staked = smallValue
+                }else{
+                    current.staked = abbreviated
+
+                }
+            })
 
             //Update the farms data
             setCurrent(Object.assign({}, current))
-
         }
     }
 
@@ -63,7 +91,7 @@ function Stake({ farm }) {
 
     useEffect(() => {
         getLPInfo()
-    }, [active, account, chadEarned])
+    }, [active, account])
 
 
     const harvestRewards = async () => {
@@ -95,14 +123,14 @@ function Stake({ farm }) {
 
             const chadMaster = '0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1'
 
-            const abi = [ { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [ { "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "Approval", "type": "event" }, { "inputs": [ { "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "value", "type": "uint256" } ], "name": "approve", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "address", "name": "", "type": "address" }, { "internalType": "address", "name": "", "type": "address" } ], "name": "allowance", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" } ]
+            const abi = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "owner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "spender", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "Approval", "type": "event" }, { "inputs": [{ "internalType": "address", "name": "spender", "type": "address" }, { "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "approve", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }, { "internalType": "address", "name": "", "type": "address" }], "name": "allowance", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }]
             const address = current.lpTokenAddress
 
             const contract = new ethers.Contract(address, abi, provider);
             const contractWithSigner = contract.connect(signer)
             let tx = await contractWithSigner.approve(chadMaster, ethers.utils.parseEther("10000000"))
 
-            
+
             tx.wait().then(() => {
                 console.log('approved')
                 current.approved = true
@@ -112,7 +140,7 @@ function Stake({ farm }) {
         console.log('pee')
     }
 
-   
+
 
     return (
 
@@ -173,7 +201,7 @@ function Stake({ farm }) {
                 }
                 {current.approved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>0</span>
+                        <span>{current.staked}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => setToggle(true)}>
                                 <span>+</span>
