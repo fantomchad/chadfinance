@@ -11,9 +11,6 @@ import { useWeb3React } from '@web3-react/core';
 
 
 export default function Home() {
-
-  const { active } = useWeb3React()
-
   return (
     <div tw="font-family[Tempest] min-h-screen max-h-screen">
       <Head>
