@@ -25,6 +25,7 @@ export function Stake({ farm }) {
 
     const [toggle, setToggle] = useState(false)
     const [current, setCurrent] = useState(farm)
+    const [liquidity, setLiquidity] = useState(0)
     const [lpTokenName, setLpTokenName] = useState('')
 
     const getLPInfo = async () => {
@@ -85,6 +86,10 @@ export function Stake({ farm }) {
         getLPInfo()
     }, [active, account])
 
+    useEffect(() => {
+        console.log("Updatinng liquidity")
+        setLiquidity(farm.liquidity)
+    }, [farm])
 
     const harvestRewards = async () => {
         if (active) {
@@ -164,7 +169,7 @@ export function Stake({ farm }) {
                     DEPOSIT FEE: {current.fee}% <br />
                 </span>
                 <span>
-                    LIQUIDITY: ${current.liquidity}
+                    LIQUIDITY: ${liquidity.toFixed(2)}
                 </span>
             </div>
 
