@@ -1,16 +1,19 @@
 import tw from 'twin.macro'
 import Stake from '../farms/stake'
 import { farmsdata } from './farms.data'
-import getLpTokenInfo from '../../../helpers/getLPTokenInfo'
 import { ethers, providers } from "ethers"
 import { useEffect, useState } from 'react'
+import getLpTokenInfo from '../../../helpers/getLpTokenInfo'
 import getFarmDetails from '../../../helpers/getFarmDetails'
-
+import getPools from '../../../helpers/getPools'
+import { useWeb3React } from '@web3-react/core'
 
 function Farms() {
+    const { account } = useWeb3React()
     const [pools, setPools] = useState(farmsdata)
 
     useEffect(() => {
+        getPools(account).then(p => console.log("POOOOLS WERE THESE", p))
         const provider = new ethers.providers.Web3Provider(window.ethereum)
 
         const lpTokensInfos = []
