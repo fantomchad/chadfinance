@@ -79,8 +79,9 @@ async function getPoolInfo(poolIndex, userWalletAddress, masterContract, provide
     tvl: 0,
     apr: 0,
     allocationPoints: parseFloat(ethers.utils.formatUnits(poolInfo.allocPoint, 0)),
-    pendingRewardsForUser: pendingRewardTokens,
-    usersDeposit: staked
+    pendingRewardsForUser: parseFloat(ethers.utils.formatUnits(pendingRewardTokens)),
+    usersDeposit: parseFloat(ethers.utils.formatUnits(staked)),
+    fee: parseFloat(ethers.utils.formatUnits(poolInfo.depositFeeBP, 2))
   }
 
   return pool
@@ -208,3 +209,12 @@ function populateAprs(pools: Pool[], totalChadValueInYear: number, totalAllocPoi
 }
 
 export default getPools
+export async function updatePoolInfo(pool: Pool, pid: number, userAddress: string, masterContract: ethers.Contract): Promise<Pool> {
+  const userInfo = await masterContract.userInfo(pid, userAddress)
+  
+  pool.pendingRewardsForUser = parseFloat(ethers.utils.formatUnits(await masterContract.pendingChad(pid, userAddress)))
+  pool.usersDeposit = parseFloat(ethers.utils.formatUnits(userInfo.amount))
+  // TODO: UPDATE OTHER THINGS TOO...
+
+  return Object.assign({}, pool)
+}

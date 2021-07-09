@@ -7,8 +7,9 @@ interface Pool {
   tvl: number
   apr: number
   allocationPoints: number
-  pendingRewardsForUser: ethers.BigNumber
-  usersDeposit: ethers.BigNumber
+  pendingRewardsForUser: number
+  usersDeposit: number
+  fee: number
 }
 
 export default Pool
