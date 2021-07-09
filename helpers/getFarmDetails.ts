@@ -1,5 +1,6 @@
 import getFtmPrice from './getFtmPrice'
 import { ethers } from 'ethers'
+
 const WFTM_ADDRESS = "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83"
 const CHAD_ADDRESS = "0xCcE93540b80ABF71B66E0a44fd71E322cE9C4D9e"
 
@@ -26,7 +27,8 @@ function getChadPrice(pools, ftmPrice) {
   const ftmAmount = getTokenAmount(chadFtmPool, WFTM_ADDRESS)
   const chadAmount = getTokenAmount(chadFtmPool, CHAD_ADDRESS)
 
-  const ftmPriceBigNumber = new ethers.utils.BigNumber((ftmPrice * 10 ** 18).toString())
+  const ftmPriceBigNumber = ethers.BigNumber.from((ftmPrice * 10 ** 18).toString())
+  // const ftmPriceBigNumber = new ethers.BigNumber(100).toNumber()
   const ftmValue = ftmAmount.mul(ftmPriceBigNumber)
 
   const chadPriceBigNumber = ftmValue.div(chadAmount)
@@ -38,7 +40,7 @@ function isFtmChadPool(pool) {
   return pool?.tokens.includes(WFTM_ADDRESS) && pool.tokens.includes(CHAD_ADDRESS)
 }
 
-function getTokenAmount(pool, address): ethers.utils.BigNumber {
+function getTokenAmount(pool, address): ethers.BigNumber {
   const tokenIndex = pool.tokens.indexOf(address)
 
   if (tokenIndex == 0) {
