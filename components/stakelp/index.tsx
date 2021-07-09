@@ -4,62 +4,85 @@ import { ethers, providers } from "ethers"
 import { useState } from "react"
 import { farmsdata } from "../pages/farms/farms.data"
 import Stake from "../pages/farms/stake"
+import { LoadingPopup } from "../popup"
 
 
 
-function StakeLp({ toggle, setToggle, FarmData }) {
+function StakeLp({ toggle, setToggle, FarmData, depositMode, getLPText, getLPInfo }) {
+
+
 
     const { account, active } = useWeb3React()
     let [lpTokenBalance, setLpTokenBalance] = useState('')
+    const [stakeTitle, setStakeTitle] = useState('')
+    const [loading, setLoading] = useState(false)
 
+
+    // GET XXX-CHAD LP TEXT
+    // setGetLPText('GET ')
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
 
-
+    if (depositMode) {
+        console.log('depositMode')
+    } else {
+        console.log('withdrawMode')
+    }
 
     const checkbal = async () => {
+
         if (active) {
-
-            // console.log('yoo')
-            //@ts-ignore
-            const lpAddress = FarmData.lpTokenAddress
-            const minABI = [{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }]
-
-            const lpContract = new ethers.Contract(lpAddress, minABI, provider);
-            let balance = await lpContract.balanceOf(account)
-            let formatBal = ethers.utils.formatUnits(balance, 18)
-            setLpTokenBalance(formatBal)
-            // lpBalance = formatBal
-            var roundedBal = parseFloat(formatBal).toFixed(3)
-            //@ts-ignore
-            document.getElementById("lpBalance").innerText = roundedBal
-            document.getElementById("lpinfo").innerText = ' LP Available'
-        }
-        else {
-            //@ts-ignore
-            // document.getElementById("lpBalance").innerText = 'not connected'
+            if (depositMode) {
+                const lpAddress = FarmData.lpTokenAddress
+                const minABI = [{ "constant": true, "inputs": [{ "name": "_owner", "type": "address" }], "name": "balanceOf", "outputs": [{ "name": "balance", "type": "uint256" }], "type": "function" }]
+                const lpContract = new ethers.Contract(lpAddress, minABI, provider);
+                let balance = await lpContract.balanceOf(account)
+                let formatBal = ethers.utils.formatUnits(balance, 18)
+                setLpTokenBalance(formatBal)
+                var roundedBal = parseFloat(formatBal).toFixed(3)
+                document.getElementById("lpBalance").innerText = roundedBal
+                document.getElementById("lpinfo").innerText = ' LP Available'
+            }
         }
     }
-    checkbal()
 
-    //THIS GOES INTO ENDLESS LOOP!!!!
-    // be careful 
+    const checkStaked = async () => {
 
-    // var intervalId = window.setInterval(function(){
-    //     while(toggle){
-    //         console.log('inside')
-    //     }
-    // console.log('outside')
-    //     clearInterval(intervalId) 
-    //   }, 2000);
+        if (active) {
+            setTimeout(function () {
+                document.getElementById("lpBalance").innerText = FarmData.formattedStaked
+                console.log(FarmData.staked)
+                document.getElementById("lpinfo").innerText = ' LP Available to withdraw'
+            }, 1);
+
+        }
+    }
+
+    if (depositMode) {
+        checkbal()
+        setTimeout(function () {
+            setStakeTitle('Stake LP')
+        }, 1);
+    } else {
+        checkStaked()
+        setTimeout(function () {
+            setStakeTitle('Unstake LP')
+        }, 1);
+    }
+
 
     const maxLP = async () => {
+
         if (active) {
-            //@ts-ignore
-            document.getElementById("inputAmt").value = lpTokenBalance
-        }
-        else {
+            if (depositMode) {
+                //@ts-ignore
+                document.getElementById("inputAmt").value = lpTokenBalance
+            } else if (!depositMode) {
+                //@ts-ignore
+                document.getElementById("inputAmt").value = FarmData.staked
+            }
+        } else {
             // Do something?
             alert('Wallet not connected')
         }
@@ -73,18 +96,52 @@ function StakeLp({ toggle, setToggle, FarmData }) {
 
     const depositLP = async () => {
         if (active) {
-            const chadMasterWithSigner = chadMasterContract.connect(signer)
-            //@ts-ignore
-            if (document.getElementById("inputAmt").value > lpTokenBalance){
-                alert('Cannot deposit more than available')
-
-            }else{
+            if (depositMode) {
+                const chadMasterWithSigner = chadMasterContract.connect(signer)
                 //@ts-ignore
-                let tx = chadMasterWithSigner.deposit(FarmData.pid, ethers.utils.parseUnits(document.getElementById("inputAmt").value, 18))
-                setToggle(false)
+                if (document.getElementById("inputAmt").value > lpTokenBalance) {
+                    alert('Cannot deposit more than available')
+                } else {
+                    setLoading(true)
+                    //@ts-ignore
+                    let tx = await chadMasterWithSigner.deposit(FarmData.pid, ethers.utils.parseUnits(document.getElementById("inputAmt").value, 18))
+                    tx.wait().then(() => {
+                        setToggle(false)
+                        //Added a timeout since info was not updating fast enough.
+                        setTimeout(function () {
+                            getLPInfo()
+                            //For some reason it takes sooo long, setting it at 10 sec seemed to work
 
+                        }, 10000);
+                        setLoading(false)
+                    })
+                }
+            } else if (!depositMode) {
+                const chadMasterWithSigner = chadMasterContract.connect(signer)
+                //@ts-ignore
+                if (document.getElementById("inputAmt").value > FarmData.staked) {
+                    alert('Cannot withdraw more than staked')
+                }
+
+                // Need to handle error if user does not input any amount
+                //@ts-ignore
+                else if (document.getElementById("inputAmt").value < 0) {
+                    alert('less than 0')
+                }
+                else {
+                    //@ts-ignore
+                    let tx = await chadMasterWithSigner.withdraw(FarmData.pid, ethers.utils.parseUnits(document.getElementById("inputAmt").value, 18))
+                    setLoading(true)
+                    tx.wait().then(() => {
+                        setToggle(false)
+                        //Added a timeout since info was not updating fast enough.
+                        setTimeout(function () {
+                            getLPInfo()
+                        }, 3000);
+                        setLoading(false)
+                    })
+                }
             }
-
         } else {
             alert('wallet not connected')
             setToggle(false)
@@ -94,7 +151,7 @@ function StakeLp({ toggle, setToggle, FarmData }) {
 
     return (
         <div tw=" flex flex-col px-2 py-4 bg-white space-y-6 opacity-100 border-4 rounded-xl background-color[#004FCE] border-white" >
-            <span tw="border-b-2 border-white text-center text-3xl text-white" >Stake LP TOKENS</span>
+            <span tw="border-b-2 border-white text-center text-3xl text-white" >{stakeTitle}</span>
             <div>
                 <div tw="flex items-center rounded px-2 w-full relative bg-white">
                     <input id="inputAmt" placeholder="FTM-Chad LP" tw=" text-right px-2 appearance-none outline-none  py-2.5" type="text" />
@@ -111,7 +168,7 @@ function StakeLp({ toggle, setToggle, FarmData }) {
             </div>
             <div tw="flex items-center justify-center cursor-pointer text-white fill-current hover:text-black">
 
-                <span tw=" text-center text-xl mr-2">Get FTM-CHAD LP</span>
+                <span id="LPTextBox" tw=" text-center text-xl mr-2">get {FarmData.first} - {FarmData.second} LP </span>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M23.4778 0.00707915L13.7143 1.50069C13.3792 1.55216 13.3016 1.78893 13.5408 2.02667L14.7978 3.27372C15.0375 3.51146 15.0375 3.90067 14.7978 4.13792L7.7523 11.1281C7.51258 11.3658 7.51258 11.7555 7.7523 11.9928L11.9117 16.1197C12.1514 16.3574 12.5439 16.3574 12.7836 16.1197L19.8291 9.12955C20.0688 8.8918 20.4612 8.8918 20.701 9.12955L21.9579 10.3766C22.1971 10.6143 22.4354 10.5374 22.4873 10.2045L23.9929 0.518349C24.0443 0.185999 23.8129 -0.0439008 23.4778 0.00707915Z" />
                     <path d="M17.412 19.3716C17.412 20.5539 16.4422 21.5167 15.25 21.5167H4.66551C3.47331 21.5167 2.50353 20.5539 2.50353 19.3716V8.87119C2.50353 7.68787 3.47331 6.72562 4.66551 6.72562H10.5746L13.0782 4.24231H4.66551C2.09278 4.24231 0 6.31827 0 8.87119V19.3716C0 21.924 2.09278 24 4.66551 24H15.25C17.8223 24 19.9155 21.924 19.9155 19.3716V11.0172L17.412 13.501V19.3716Z" />
@@ -119,13 +176,15 @@ function StakeLp({ toggle, setToggle, FarmData }) {
 
             </div>
             <div tw="flex justify-around">
-                <div tw="bg-white rounded px-6 cursor-pointer hover:(bg-black text-white)" onClick={() => setToggle(false)} >
+                <div tw="bg-white rounded px-6 cursor-pointer hover:(bg-black text-white)" onClick={() => { setToggle(false), getLPInfo() }} >
                     Cancel
                 </div>
-                <div tw="bg-white rounded px-6 cursor-pointer hover:(bg-black text-white)" onClick={depositLP}>
+                <div tw="bg-white rounded px-6 cursor-pointer hover:(bg-black text-white)" onClick={depositLP} >
                     Confirm
                 </div>
             </div>
+            <LoadingPopup setLoading={setLoading} loading={loading} />
+
         </div>
     )
 }

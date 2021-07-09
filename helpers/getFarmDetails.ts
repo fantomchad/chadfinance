@@ -28,7 +28,6 @@ function getChadPrice(pools, ftmPrice) {
   const chadAmount = getTokenAmount(chadFtmPool, CHAD_ADDRESS)
 
   const ftmPriceBigNumber = ethers.BigNumber.from((ftmPrice * 10 ** 18).toString())
-  // const ftmPriceBigNumber = new ethers.BigNumber(100).toNumber()
   const ftmValue = ftmAmount.mul(ftmPriceBigNumber)
 
   const chadPriceBigNumber = ftmValue.div(chadAmount)
