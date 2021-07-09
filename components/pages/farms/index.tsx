@@ -13,23 +13,25 @@ function Farms() {
     const [pools, setPools] = useState(farmsdata)
 
     useEffect(() => {
-        getPools(account).then(p => console.log("POOOOLS WERE THESE", p))
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        if (account) {
+            getPools(account).then(p => console.log("POOLS ARE THESE", p))
+        }
+        // const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-        const lpTokensInfos = []
+        // const lpTokensInfos = []
 
-        const getTokensCalls = farmsdata.map(async (f) => {
-            const info = await getLpTokenInfo(f.lpTokenAddress, provider)
-            lpTokensInfos.push(info)
-        })
+        // const getTokensCalls = farmsdata.map(async (f) => {
+        //     const info = await getLpTokenInfo(f.lpTokenAddress, provider)
+        //     lpTokensInfos.push(info)
+        // })
 
-        Promise.all(getTokensCalls).then(async () => {
-            const poolsWithTvlAndApr = await getFarmDetails(lpTokensInfos)
-            console.log("Modified pools")
-            console.log(poolsWithTvlAndApr)
-            setPools(poolsWithTvlAndApr)
-        })
-    }, [])
+        // Promise.all(getTokensCalls).then(async () => {
+        //     const poolsWithTvlAndApr = await getFarmDetails(lpTokensInfos)
+        //     console.log("Modified pools")
+        //     console.log(poolsWithTvlAndApr)
+        //     setPools(poolsWithTvlAndApr)
+        // })
+    }, [account])
 
     return (
         <div tw="py-4 px-6 flex flex-shrink-0 flex-wrap items-center justify-evenly">
