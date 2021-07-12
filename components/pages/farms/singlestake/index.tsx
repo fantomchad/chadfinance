@@ -69,7 +69,6 @@ function SingleStake({ farm }) {
                 let formattedLPStaked = ethers.utils.formatUnits(amount.amount, 18)
                 var roundedBal = parseFloat(formattedLPStaked).toFixed(2)
                 let abbreviated = numFormatter(roundedBal)
-                console.log('lpstaked ', current.pid, ':', abbreviated)
 
                 if (abbreviated > 0 && abbreviated < 0.001) {
                     let smallValue = '< 0.001'

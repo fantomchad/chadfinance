@@ -6,6 +6,9 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import Farm from "../../../../types/Farm"
 import { updatePoolInfo } from "../../../../helpers/getPools"
+import Pool from "../../../../types/Pool"
+import BasicInfo from "../../../../types/BasicInfo"
+import InitialPool from "../../../../types/InitialPool"
 
 function numFormatter(num): string {
     if (num > 999 && num < 1000000) {
@@ -19,23 +22,40 @@ function numFormatter(num): string {
     }
 }
 
-const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
+interface StakeProps {
+    basicInfo: BasicInfo
+    initialPool: InitialPool
+    prices: Map<string, ethers.BigNumber>
+}
+
+const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
 
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
-    const [poolInfo, setPoolInfo] = useState(pool)
+    const [poolInfo, setPoolInfo] = useState<Pool>()
     const [isApproved, setIsApproved] = useState(false)
-    const [stakedAmount, setStakedAmount] = useState("")
-    const [pendingRewards, setPendinRewards] = useState("")
+    const [stakedAmount, setStakedAmount] = useState("-1")
+    const [pendingRewards, setPendinRewards] = useState("-1")
     const [fee, setFee] = useState(-1)
 
     useEffect(() => {
         handleNewPool()
-    }, [active, account, pool])
+    }, [active, account, initialPool, prices])
 
     const handleNewPool = () => {
-        setPoolInfo(pool)
+        if (initialPool && prices && prices.size > 0) {
+            updatePoolInfo()
+        }
+    }
+
+    const updatePoolInfo = () => {
+        const pool = initialPool.toPool(account, prices)
+        pool.updatePool(account, prices).then(p => {
+            setPoolInfo(p)
+            setPendinRewards(p.pendingRewardsForUser.toFixed(2))
+            setStakedAmount(p.usersDeposit.toFixed(2))
+        })
     }
 
     useEffect(() => {
@@ -90,8 +110,8 @@ const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
             let tx = await chadMasterWithSigner.deposit(basicInfo.pid, 0)
             
             tx.wait().then(async () => {
-                const updatedPoolInfo = await updatePoolInfo(pool, basicInfo.pid, account, chadMasterContract)
-                setPoolInfo(updatedPoolInfo)
+                await poolInfo.updatePool(account, prices)
+                setPoolInfo(poolInfo)
                 console.log('tx confirmed, updating farms')
             })
         }
@@ -135,14 +155,14 @@ const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
                     HOT🔥
                 </div>
                 <div tw=" background-color[#004FCE] w-32 py-1  px-8 rounded-lg">
-                    {poolInfo.allocationPoints === -1 ? "..." : poolInfo.allocationPoints + "X"}
+                    {!poolInfo || poolInfo.allocationPoints === -1 ? "..." : poolInfo.allocationPoints + "X"}
                 </div>
             </div>
             <span tw="truncate text-blue-700 text-3xl text-center px-2">{basicInfo.first}-{basicInfo.second} LP</span>
 
             <div tw="flex flex-col -space-y-2 text-lg">
                 <span>
-                    APR: {poolInfo.apr === -1 ? "loading" : poolInfo.apr.toFixed(2) + "%"}
+                    APR: {!poolInfo || poolInfo.apr === "-1" ? "loading" : poolInfo.apr + "%"}
                 </span>
                 <span>
                     EARN: {basicInfo.earn}
@@ -151,14 +171,14 @@ const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
                     DEPOSIT FEE: {fee === -1 ? "loading" : fee + "%"}<br />
                 </span>
                 <span>
-                    TVL: {poolInfo.tvl === -1 ? "loading" : "$" + poolInfo.tvl.toFixed(2)}
+                    TVL: {!poolInfo || poolInfo.tvl === "-1" ? "loading" : "$" + poolInfo.tvl}
                 </span>
             </div>
 
             <span tw="text-blue-700 text-2xl"> {basicInfo.earn} earned</span>
 
             <div tw="flex justify-between">
-                <span id="chadEarned" tw="text-xl">{pendingRewards === "-1.00" ? "loading" : pendingRewards}</span>
+                <span id="chadEarned" tw="text-xl">{pendingRewards === "-1" ? "loading" : pendingRewards}</span>
                 <div
                     onClick={harvestRewards}
                     tw=" flex items-center justify-center cursor-pointer text-white text-center border-2 border-color[#004FCE] background-color[#004FCE] py-1 px-8 rounded-lg hover:(bg-white color[#004FCE]) md:border-4">
@@ -178,7 +198,7 @@ const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
                 }
                 {isApproved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>{stakedAmount === "-1.00" ? "loading" : stakedAmount}</span>
+                        <span>{stakedAmount === "-1" ? "loading" : stakedAmount}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => setToggle(true)}>
                                 <span>+</span>
@@ -191,7 +211,7 @@ const Stake: React.FC<Farm> = ({ basicInfo, pool }) => {
                 }
             </div>
             <Popup toggle={toggle} setToggle={setToggle}>
-                <StakeLp setToggle={setToggle} farm={{basicInfo: basicInfo, pool: pool}} toggle={toggle} />
+                <StakeLp setToggle={setToggle} farm={{basicInfo: basicInfo, pool: poolInfo}} toggle={toggle} onStake={updatePoolInfo} />
             </Popup>
         </div>
 

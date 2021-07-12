@@ -7,10 +7,11 @@ import Farm from "../../types/Farm"
 interface StakeLpProps {
     toggle: boolean
     setToggle: Function,
-    farm: Farm
+    farm: Farm,
+    onStake: Function
 }
 
-const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, farm }) => {
+const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, farm, onStake }) => {
     const { account, active } = useWeb3React()
 
     const [inputAmount, setInputAmount] = useState<string>()
@@ -47,10 +48,12 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, farm }) => {
                 alert('Cannot deposit more than available')
             } else {
                 //@ts-ignore
-                let tx = chadMasterWithSigner.deposit(farm.basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
+                let tx = await chadMasterWithSigner.deposit(farm.basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
+                tx.wait().then(() => {
+                    onStake()
+                })
                 setToggle(false)
             }
-
         } else {
             alert('wallet not connected')
             setToggle(false)
