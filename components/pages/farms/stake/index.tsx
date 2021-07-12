@@ -4,8 +4,6 @@ import Popup from "../../../popup"
 import StakeLp from "../../../stakelp"
 import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
-import Farm from "../../../../types/Farm"
-import { updatePoolInfo } from "../../../../helpers/getPools"
 import Pool from "../../../../types/Pool"
 import BasicInfo from "../../../../types/BasicInfo"
 import InitialPool from "../../../../types/InitialPool"
@@ -33,7 +31,7 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
-    const [poolInfo, setPoolInfo] = useState<Pool>()
+    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool.toPool(account, prices))
     const [depositMode, setDepositMode] = useState<boolean>()
     const [isApproved, setIsApproved] = useState(false)
     const [stakedAmount, setStakedAmount] = useState("-1")

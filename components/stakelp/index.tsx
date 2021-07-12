@@ -20,24 +20,20 @@ interface StakeLpProps {
 const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, onStake, isDeposit }) => {
     const { account, active } = useWeb3React()
 
-    const [lpTokenBalance, setLpTokenBalance] = useState('')
     const [loading, setLoading] = useState(false)
     const [inputAmount, setInputAmount] = useState<string>()
-    const [tokensAvailable, settokensAvailable] = useState("loading")
+    const [tokensAvailable, setTokensAvailable] = useState("loading")
     const [tokensStaked, setTokensStaked] = useState("loading")
 
-    useEffect(() => {
-        settokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))     
-        setTokensStaked(pool.usersDeposit.toString())
-    }, [pool])
-
-
-    // GET XXX-CHAD LP TEXT
-    // setGetLPText('GET ')
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
-    
+
+    useEffect(() => {
+        setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))     
+        setTokensStaked(pool.usersDeposit.toString())
+    }, [pool])
+
     if (isDeposit) {
         console.log('depositMode')
     } else {
@@ -116,7 +112,7 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
             <span tw="border-b-2 border-white text-center text-3xl text-white" >{isDeposit ? "Stake LP tokens" : "Unstake LP tokens"}</span>
             <div>
                 <div tw="flex items-center rounded px-2 w-full relative bg-white">
-                    <input id="inputAmt" value={inputAmount} onChange={e => setInputAmount(e.target.value)} placeholder="FTM-Chad LP" tw=" text-right px-2 appearance-none outline-none  py-2.5" type="text" />
+                    <input id="inputAmt" value={inputAmount} onChange={e => setInputAmount(e.target.value)} placeholder={basicInfo.first + "-" + basicInfo.second + " LP"} tw=" text-right px-2 appearance-none outline-none  py-2.5" type="text" />
                     <div
                         onClick={maxLP}
                         tw=" cursor-pointer top-1.5 right-2 text-xl border-2 rounded px-2 border-color[#004FCE] hover:(background-color[#004FCE] text-white)">

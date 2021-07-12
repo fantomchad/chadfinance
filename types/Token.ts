@@ -37,8 +37,10 @@ class Token {
   getTvl(prices: Map<string, ethers.BigNumber>): string {
     const tokenPrice = prices.get(this.tokens[0].toLowerCase())
     const tokenAmount = this.stakedOnFarm
+    const lockedTvl = tokenPrice.mul(tokenAmount)
+    const stringifiedTvl = ethers.utils.formatUnits(lockedTvl, 36)
 
-    return ethers.utils.formatUnits(tokenPrice.mul(tokenAmount))
+    return stringifiedTvl.substring(0, stringifiedTvl.indexOf(".") + 2)
   }
 
   async getUpdated(userWalletAddress): Promise<Token> {
