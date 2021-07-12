@@ -66,21 +66,19 @@ export function Stake({ farm }) {
             // console.log('approved:', current.pid, formatapprove)
 
             // LP Staked 
-            const lpStaked = await chadMasterContract.userInfo(current.pid, account)
-            
-            const formattedLPStaked = ethers.utils.formatUnits(lpStaked.amount, 18)
-            const parsedStakedBalance = parseFloat(formattedLPStaked)
-            current.staked = parsedStakedBalance
-            const roundedStakedBalance = parsedStakedBalance.toFixed(2)
-            const abbreviated = numFormatter(roundedStakedBalance)
-            console.log('lpstaked ', current.pid, ':', abbreviated)
+            let lpStaked = await chadMasterContract.userInfo(current.pid, account).then(amount => {
+                let formattedLPStaked = ethers.utils.formatUnits(amount.amount, 18)
+                var roundedBal = parseFloat(formattedLPStaked).toFixed(2)
+                let abbreviated = numFormatter(roundedBal)
 
-            if (parsedStakedBalance > 0.0001 && parsedStakedBalance < 0.001) {
-                let smallValue = '< 0.001'
-                current.formattedStaked = smallValue
-            } else {
-                current.formattedStaked = abbreviated
-            }
+                if (abbreviated > 0 && abbreviated < 0.001) {
+                    let smallValue = '< 0.001'
+                    current.staked = smallValue
+                } else {
+                    current.staked = abbreviated
+
+                }
+            })
 
             //Update the farms data
             setCurrent(Object.assign({}, current))
