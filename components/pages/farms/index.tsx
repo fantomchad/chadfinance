@@ -1,13 +1,10 @@
 import tw from 'twin.macro'
 import Stake from '../farms/stake'
 
-import { ethers, providers } from "ethers"
+import { ethers } from "ethers"
 import { useEffect, useState } from 'react'
-import { useWeb3React } from '@web3-react/core'
 import InitialPool from '../../../types/InitialPool'
 import Farm from '../../../types/Farm'
-import getUpdatedPrices from '../../../helpers/getUpdatedPrices'
-import getInitialPools from '../../../helpers/getInitialPools'
 
 interface FarmsProps {
     initialFarms: Farm[]

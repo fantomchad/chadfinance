@@ -138,6 +138,11 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
         }
     }
 
+    const isSet = (value): boolean => {
+        const notSetValues = [undefined, null, -1, "-1", "-1.00"]
+        return !notSetValues.includes(value)
+    }
+
     return (
 
         <div tw="flex  flex-col justify-evenly flex-grow md:flex-grow-0 width[330px] md:width[350px] md:height[520px]  border-width[6px] bg-white border-color[#004FCE] space-y-2 box-shadow[0px 0px 9px 3px rgba(0,0,0,0.75)] px-4 py-4 rounded-3xl mb-16">
@@ -154,30 +159,30 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
                     HOT🔥
                 </div>
                 <div tw=" background-color[#004FCE] w-32 py-1  px-8 rounded-lg">
-                    {!poolInfo || poolInfo.allocationPoints === -1 ? "..." : poolInfo.allocationPoints + "X"}
+                    {isSet(poolInfo.allocationPoints) ? poolInfo.allocationPoints + "X" : "..."}
                 </div>
             </div>
             <span tw="truncate text-blue-700 text-3xl text-center px-2">{basicInfo.first}-{basicInfo.second} LP</span>
 
             <div tw="flex flex-col -space-y-2 text-lg">
                 <span>
-                    APR: {!poolInfo || poolInfo.apr === "-1" ? "loading" : poolInfo.apr + "%"}
+                    APR: {isSet(poolInfo.apr) ? poolInfo.apr + "%" : "loading" }
                 </span>
                 <span>
                     EARN: {basicInfo.earn}
                 </span>
                 <span>
-                    DEPOSIT FEE: {fee === -1 ? "loading" : fee + "%"}<br />
+                    DEPOSIT FEE: {isSet(fee) ? fee + "%" : "loading"}<br />
                 </span>
                 <span>
-                    TVL: {!poolInfo || poolInfo.tvl === "-1" ? "loading" : "$" + poolInfo.tvl}
+                    TVL: {isSet(poolInfo.tvl) ? "$" + poolInfo.tvl : "loading"}
                 </span>
             </div>
 
             <span tw="text-blue-700 text-2xl"> {basicInfo.earn} earned</span>
 
             <div tw="flex justify-between">
-                <span id="chadEarned" tw="text-xl">{pendingRewards === "-1" ? "loading" : pendingRewards}</span>
+                <span id="chadEarned" tw="text-xl">{isSet(pendingRewards) ? pendingRewards : "loading"}</span>
                 <div
                     onClick={harvestRewards}
                     tw=" flex items-center justify-center cursor-pointer text-white text-center border-2 border-color[#004FCE] background-color[#004FCE] py-1 px-8 rounded-lg hover:(bg-white color[#004FCE]) md:border-4">
@@ -197,7 +202,7 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
                 }
                 {isApproved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>{stakedAmount === "-1" ? "loading" : stakedAmount}</span>
+                        <span>{isSet(stakedAmount) ? stakedAmount : "loading"}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => {
                                 setToggle(true)
