@@ -8,13 +8,15 @@ import BasicInfo from "../../../../types/BasicInfo"
 import InitialPool from "../../../../types/InitialPool"
 import Pool from "../../../../types/Pool"
 
-function numFormatter(num) {
+function numFormatter(num): string {
     if (num > 999 && num < 1000000) {
-        return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+        return (num / 1000).toFixed(2) + 'K'; // convert to K for number from > 1000 < 1 million 
     } else if (num > 1000000) {
-        return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+        return (num / 1000000).toFixed(2) + 'M'; // convert to M for number from > 1 million 
+    } else if (num > 0 && num < 0.001) {
+        return '< 0.001'
     } else if (num < 900) {
-        return num; // if value < 1000, nothing to do
+        return num.toString(); // if value < 1000, nothing to do
     }
 }
 
@@ -184,7 +186,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
             <span tw="text-blue-700 text-2xl"> {basicInfo.earn} earned</span>
 
             <div tw="flex justify-between">
-                <span id="chadEarned" tw="text-xl">{isSet(pendingRewards) ? pendingRewards : "loading"}</span>
+                <span id="chadEarned" tw="text-xl">{isSet(pendingRewards) ? numFormatter(pendingRewards) : "loading"}</span>
                 <div
                     onClick={harvestRewards}
                     tw=" flex items-center justify-center cursor-pointer text-white text-center border-2 border-color[#004FCE] background-color[#004FCE] py-1 px-8 rounded-lg hover:(bg-white color[#004FCE]) md:border-4">
@@ -204,7 +206,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
                 }
                 {isApproved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>{isSet(stakedAmount) ? stakedAmount : "loading"}</span>
+                        <span>{isSet(stakedAmount) ? numFormatter(stakedAmount) : "loading"}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => {
                                 setToggle(true) 
