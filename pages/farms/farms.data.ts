@@ -1,4 +1,4 @@
-import BasicInfo from "../../../types/BasicInfo"
+import BasicInfo from "../../types/BasicInfo"
 
 const farmsdata: BasicInfo[] = [
     {
@@ -32,14 +32,6 @@ const farmsdata: BasicInfo[] = [
         earn: "Chad",
         pid: 4,
         lpTokenAddress: "0x2aCF18104FfCe06aC4B7DfB9C1FF539119D96B27",
-    },
-    {
-        first: "steak",
-        second: "chad",
-        approved: false,
-        earn: "Chad",
-        pid: 5,
-        lpTokenAddress: "0x9eDf4420016646372Ca48BC881F2059056083016",
     },
     {
         first: "tomb",
@@ -88,14 +80,6 @@ const farmsdata: BasicInfo[] = [
         earn: "Chad",
         pid: 11,
         lpTokenAddress: "0xE23e37Da043Cbfb66e7084231bfD24045F25fbBa",
-    },
-    {
-        first: "opera",
-        second: "chad",
-        approved: false,
-        earn: "Chad",
-        pid: 12,
-        lpTokenAddress: "0x2D6830DA43fAA5d60589DD0cF5a6f0CDAcf89d91",
     },
     {
         first: "just",
@@ -151,7 +135,15 @@ const farmsdata: BasicInfo[] = [
         approved: false,
         earn: "Chad",
         pid: 19,
-        lpTokenAddress: "0x00000",
+        lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
+    },
+    {
+        first: "Grim",
+        second: "FTM",
+        approved: false,
+        earn: "Chad",
+        pid: 19,
+        lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
     }
     
 ]
