@@ -32,12 +32,12 @@ export default function Home() {
                             <div tw="flex md:(items-center justify-center) pl-4 pr-32 relative">
                                 <img tw="w-full hidden md:block" src="assets/images/StandingCHAD.svg" alt="" />
                                 <img tw="w-full md:hidden" src="assets/images/StandingCHADLight.svg" alt="" />
-                                <span tw="text-3xl absolute text-white w-44 bottom[10%] text-center right-0 mr-4 md:hidden">faster cheaper better</span>
+                                <span tw="text-3xl absolute text-white w-44 bottom[10%] text-center right-0 mr-4 md:hidden">faster cheaper better $€£</span>
                             </div>
                             <div tw="flex flex-col items-center px-4 md:(w-2/3 px-0) text-center space-y-8">
                                 <span tw="text-xl absolute hidden text-white w-44 md:(static md:text-black text-8xl)">faster,cheaper, and better</span>
                                 <div tw="bg-white text-black p-6 md:background-color[#004FCE] md:text-white rounded-3xl md:py-12 md:px-4 md:max-width[80%]">
-                                    <span tw="text-2xl md:font-size[32px] leading-6 ">CHAD IS BUILT ON FANTOM NETWORK WHICH IS ULTIMATELY FASTER, CHEAPER, AND BETTER THAN BSC AND ETH NETWORK.</span>
+                                    <span tw="text-2xl md:font-size[32px] leading-6 ">CHAD IS BUILT ON FANTOM NETWORK WHICH IS ULTIMATELY FASTER, CHEAPER, AND BETTER THAN BSC AND ETH NETWORK. TEST DEMO </span>
                                 </div>
                                 <div tw="md:flex items-center hidden">
                                     <img tw="h-24" src="/assets/images/ChadLogo.svg" alt="" />
