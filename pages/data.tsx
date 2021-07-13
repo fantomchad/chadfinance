@@ -32,7 +32,7 @@ export default function Data() {
                             <span tw="text-xl text-white">Fucking TVL</span>
                             <Counter value="$12,000,000.00" />
                             <span tw=" mt-4 text-xl text-white">Fucking $Chad Burnt</span>
-                            <Counter value="120,000.00" />
+                            <Counter value="696969" />
                         </div>
 
                     </div>
