@@ -10,9 +10,9 @@ import InitialPool from "../../../../types/InitialPool"
 
 function numFormatter(num): string {
     if (num > 999 && num < 1000000) {
-        return (num / 1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+        return (num / 1000).toFixed(2) + 'K'; // convert to K for number from > 1000 < 1 million 
     } else if (num > 1000000) {
-        return (num / 1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+        return (num / 1000000).toFixed(2) + 'M'; // convert to M for number from > 1 million 
     } else if (num > 0 && num < 0.001) {
         return '< 0.001'
     } else if (num < 900) {
@@ -202,7 +202,7 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
                 }
                 {isApproved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>{isSet(stakedAmount) ? stakedAmount : "loading"}</span>
+                        <span>{isSet(stakedAmount) ? numFormatter(stakedAmount) : "loading"}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => {
                                 setToggle(true)
