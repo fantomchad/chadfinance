@@ -29,7 +29,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
 
     useEffect(() => {
         setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))     
-        setTokensStaked(pool.usersDeposit.toString())
+        handleTokensStaked()
     }, [pool])
 
     if (isDeposit) {
@@ -44,9 +44,10 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
 
     const maxLP = async () => {
         if (active) {
-            //@ts-ignore
-            console.log("Tokens available", tokensAvailable)
-            setInputAmount(tokensAvailable)
+            if (isDeposit)
+                setInputAmount(tokensAvailable)
+            if (!isDeposit)
+                setInputAmount(tokensStaked)
         }
         else {
             // Do something?
@@ -106,6 +107,18 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
         }
     }
 
+    const getDepositedAmount = async (): Promise<ethers.BigNumber> => {
+        const userInfo = await chadMasterContract.userInfo(basicInfo.pid, account)
+        const usersDeposit: ethers.BigNumber = userInfo.amount
+    
+        return usersDeposit
+    }
+
+    const handleTokensStaked = async () => {
+        const stakedTokenAmount = await getDepositedAmount()
+        setTokensStaked(ethers.utils.formatUnits(stakedTokenAmount))
+    }
+
 
     return (
         <div tw=" flex flex-col px-2 py-4 bg-white space-y-6 opacity-100 border-4 rounded-xl background-color[#004FCE] border-white" >
@@ -121,7 +134,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                 </div>
                 <div tw="text-white text-right mt-2">
                     {active ? 
-                    <span id="lpinfo">{parseFloat(tokensAvailable).toFixed(2)} {basicInfo.first} available</span> :
+                    <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first} {isDeposit ? "available" : "staked"}</span> :
                     <span id="lpBalance">wallet Not Connected</span>}
                 </div>
             </div>
