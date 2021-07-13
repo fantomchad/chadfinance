@@ -1,38 +1,35 @@
 import tw from 'twin.macro'
 import Stake from '../farms/stake'
-import { farmsdata } from './farms.data'
-import getLpTokenInfo from '../../../helpers/getLPTokenInfo'
+
 import { ethers, providers } from "ethers"
 import { useEffect, useState } from 'react'
-import getFarmDetails from '../../../helpers/getFarmDetails'
+import { useWeb3React } from '@web3-react/core'
+import InitialPool from '../../../types/InitialPool'
+import Farm from '../../../types/Farm'
+import getUpdatedPrices from '../../../helpers/getUpdatedPrices'
+import getInitialPools from '../../../helpers/getInitialPools'
 
+interface FarmsProps {
+    initialFarms: Farm[]
+    tokenPrices: Map<string, ethers.BigNumber>
+}
 
-function Farms() {
-    const [pools, setPools] = useState(farmsdata)
+const Farms: React.FC<FarmsProps> = ({ initialFarms, tokenPrices }) => {
+    const [farms, setFarms] = useState<Farm[]>(initialFarms)
+    const [prices, setPrices] = useState<Map<string, ethers.BigNumber>>(tokenPrices)
 
     useEffect(() => {
-        const provider = new ethers.providers.Web3Provider(window.ethereum)
-
-        const lpTokensInfos = []
-
-        const getTokensCalls = farmsdata.map(async (f) => {
-            const info = await getLpTokenInfo(f.lpTokenAddress, provider)
-            lpTokensInfos.push(info)
-        })
-
-        Promise.all(getTokensCalls).then(async () => {
-            const poolsWithTvlAndApr = await getFarmDetails(lpTokensInfos)
-            console.log("Modified pools")
-            console.log(poolsWithTvlAndApr)
-            setPools(poolsWithTvlAndApr)
-        })
-    }, [])
+        setFarms(initialFarms)
+        setPrices(tokenPrices)
+    }, [initialFarms, tokenPrices])
 
     return (
         <div tw="py-4 px-6 flex flex-shrink-0 flex-wrap items-center justify-evenly">
             {
-                pools.map((item, index) => (
-                    <Stake key={index} farm={item} />
+                farms.map((item, index) => (
+                    <div key={index}>
+                        <Stake basicInfo={item.basicInfo} initialPool={item.pool as InitialPool} prices={prices} />
+                    </div>
                 ))
             }
         </div>
