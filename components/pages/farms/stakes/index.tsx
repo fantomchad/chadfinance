@@ -1,6 +1,5 @@
 import { ethers } from 'ethers'
 import React, { useEffect, useState } from 'react'
-import { stakesdata } from '../../../../pages/farms/stakes.data'
 import Farm from '../../../../types/Farm'
 import InitialPool from '../../../../types/InitialPool'
 import SingleStake from '../singlestake'
@@ -20,7 +19,7 @@ const Stakes: React.FC<FarmsProps> = ({ initialFarms, tokenPrices}) => {
     }, [initialFarms, tokenPrices])
 
     return (
-        <div tw="p-4 flex flex-shrink-0 flex-wrap items-center justify-evenly">
+        <div tw="py-4 px-6 flex flex-shrink-0 flex-wrap items-center justify-evenly" style={{paddingTop: "1rem"}}>
             {
                 farms.map((item, index) => (
                     <SingleStake key={index} initialPool={item.pool as InitialPool} basicInfo={item.basicInfo} prices={prices} />
