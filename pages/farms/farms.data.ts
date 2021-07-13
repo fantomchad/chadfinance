@@ -144,7 +144,16 @@ const farmsdata: BasicInfo[] = [
         earn: "Chad",
         pid: 18,
         lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
+    },
+    {
+        first: "HODL",
+        second: "FTM",
+        approved: false,
+        earn: "Chad",
+        pid: 19,
+        lpTokenAddress: "0x00000",
     }
+    
 ]
 
 export default farmsdata
