@@ -122,7 +122,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
 
     return (
         <div tw=" flex flex-col px-2 py-4 bg-white space-y-6 opacity-100 border-4 rounded-xl background-color[#004FCE] border-white" >
-            <span tw="border-b-2 border-white text-center text-3xl text-white" >stake {basicInfo.first}</span>
+            <span tw="border-b-2 border-white text-center text-3xl text-white" > {isDeposit ? "Stake Chad" : "Unstake Chad"}</span>
             <div>
                 <div tw="flex items-center rounded px-2 w-full relative bg-white">
                     <input id="inputAmt" value={inputAmount} placeholder={basicInfo.first} onChange={e => setInputAmount(e.target.value)} tw=" text-right px-2 appearance-none outline-none  py-2.5" type="text" />
