@@ -114,7 +114,7 @@ const farmsdata: BasicInfo[] = [
         lpTokenAddress: "0xB6De4Ab4446d03B0df6e312C53143370981D9385",
     },
     {
-        first: "xSteak",
+        first: "xsteak",
         second: "chad",
         approved: false,
         earn: "Chad",
@@ -122,7 +122,7 @@ const farmsdata: BasicInfo[] = [
         lpTokenAddress: "0x3932C0126d8Cc965A8C6068e32b08bCceaC5035b",
     },
     {
-        first: "SBRW",
+        first: "sbrw",
         second: "chad",
         approved: false,
         earn: "Chad",
@@ -130,16 +130,16 @@ const farmsdata: BasicInfo[] = [
         lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
     },
     {
-        first: "HODL",
-        second: "FTM",
+        first: "hodl",
+        second: "ftm",
         approved: false,
         earn: "Chad",
         pid: 19,
         lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
     },
     {
-        first: "Grim",
-        second: "FTM",
+        first: "grim",
+        second: "ftm",
         approved: false,
         earn: "Chad",
         pid: 19,
