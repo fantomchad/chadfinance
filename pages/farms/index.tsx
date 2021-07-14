@@ -9,12 +9,12 @@ import Stakes from '../../components/pages/farms/stakes'
 import SocialIcon from "../../components/social"
 import getInitialPools from '../../helpers/getInitialPools'
 import Farm from '../../types/Farm'
-import farmsdata from './farms.data'
 import InitialPool from '../../types/InitialPool'
 import getDummyPools from '../../helpers/getDummyPools'
 import getUpdatedPrices from '../../helpers/getUpdatedPrices'
 import { ethers } from 'ethers'
-import { stakesdata } from './stakes.data'
+import { stakesdata } from '../../data/stakes.data'
+import farmsdata from '../../data/farms.data'
 
 
 const FarmPage: React.FC = () => {

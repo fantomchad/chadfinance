@@ -1,4 +1,4 @@
-import BasicInfo from "../../types/BasicInfo"
+import BasicInfo from "../types/BasicInfo"
 
 const farmsdata: BasicInfo[] = [
     {
