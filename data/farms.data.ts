@@ -135,7 +135,7 @@ const farmsdata: BasicInfo[] = [
         approved: false,
         earn: "Chad",
         pid: 19,
-        lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
+        lpTokenAddress: "0x06bef78cd8bb17a6daced10b610884c09f36fdb7",
     },
     {
         first: "grim",
@@ -143,7 +143,7 @@ const farmsdata: BasicInfo[] = [
         approved: false,
         earn: "Chad",
         pid: 19,
-        lpTokenAddress: "0x15BC00B1Cb487E0ADE57D6A12A8aE8e4D6a5BFa3",
+        lpTokenAddress: "0x6680B936216e770605E43E7214e5838E2803f514",
     }
     
 ]
