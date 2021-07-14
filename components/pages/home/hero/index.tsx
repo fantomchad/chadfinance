@@ -32,7 +32,7 @@ function HeroSection() {
                     <div tw="flex flex-1 items-start -ml-96">
                         <div tw="flex items-center  flex-col">
                             <span tw="text-3xl text-white">Fucking TVL</span>
-                            <Counter value="$12,000,000.00" />
+                            <Counter value="$69,420,000.00" />
                             <span tw="text-3xl text-white">Fucking $Chad Burnt</span>
                             <Counter value={chadBurnt} />
                         </div>
