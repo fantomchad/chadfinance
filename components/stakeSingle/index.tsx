@@ -28,7 +28,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
     const signer = provider.getSigner()
 
     useEffect(() => {
-        setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))     
+        setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))
         handleTokensStaked()
     }, [pool])
 
@@ -63,11 +63,13 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                 if (inputAmount > tokensAvailable) {
                     alert('Cannot deposit more than available')
                 } else {
+                    //setLoading to activate loading popup
                     setLoading(true)
                     //@ts-ignore
                     let tx = await chadMasterWithSigner.deposit(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
                     tx.wait().then(() => {
                         setToggle(false)
+                        //setLoading to deactivate loading popup
                         setLoading(false)
                         tx.wait().then(() => {
                             onStake()
@@ -88,9 +90,11 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                 else {
                     //@ts-ignore
                     let tx = await chadMasterWithSigner.withdraw(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
+                    //setLoading to activate loading popup
                     setLoading(true)
                     tx.wait().then(() => {
                         setToggle(false)
+                        //setLoading to deactivate loading popup
                         setLoading(false)
                         tx.wait().then(() => {
                             onStake()
@@ -110,7 +114,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
     const getDepositedAmount = async (): Promise<ethers.BigNumber> => {
         const userInfo = await chadMasterContract.userInfo(basicInfo.pid, account)
         const usersDeposit: ethers.BigNumber = userInfo.amount
-    
+
         return usersDeposit
     }
 
@@ -133,9 +137,9 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     </div>
                 </div>
                 <div tw="text-white text-right mt-2">
-                    {active ? 
-                    <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first} {isDeposit ? "available" : "staked"}</span> :
-                    <span id="lpBalance">wallet Not Connected</span>}
+                    {active ?
+                        <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first} {isDeposit ? "available" : "staked"}</span> :
+                        <span id="lpBalance">wallet Not Connected</span>}
                 </div>
             </div>
             <div tw="flex items-center justify-center cursor-pointer text-white fill-current hover:text-black">
@@ -155,6 +159,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     Confirm
                 </div>
             </div>
+            {/* loading popup */}
             <LoadingPopup setLoading={setLoading} loading={loading} />
 
         </div>

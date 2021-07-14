@@ -11,6 +11,7 @@ export default function Popup({ children, toggle, setToggle, showClosed = false 
     ) : <></>
 }
 
+//Loading popup
 export function LoadingPopup({ loading, setLoading, showClosed = false }) {
     return loading ? (
         <div tw=" flex items-center background-color[rgba(0, 0, 0, 0.3)] height[100%] inset-0 z-30 width[100%]  justify-center fixed overflow-hidden">
