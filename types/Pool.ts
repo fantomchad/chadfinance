@@ -15,7 +15,7 @@ class Pool {
   ready: boolean
   masterChad: ethers.Contract
 
-  constructor(stakedToken: Token | LpToken, allocationPoints: number, pid: number, fee: number, userWalletAddress: string, prices: Map<string, ethers.BigNumber>, masterChad: ethers.Contract) {
+  constructor(stakedToken: Token | LpToken, allocationPoints: number, pid: number, fee: number, masterChad: ethers.Contract) {
     this.stakedToken = stakedToken
     this.allocationPoints = allocationPoints
     this.masterChad = masterChad
@@ -40,8 +40,8 @@ class Pool {
     this.stakedToken = await this.stakedToken.getUpdated(userWalletAddress)
   }
 
-  updateTvl(prices) {
-    this.tvl = this.stakedToken.getTvl(prices)
+  async updateTvl(prices) {
+    this.tvl = await this.stakedToken.getTvl(prices)
 
     return this.tvl
   }
@@ -56,7 +56,7 @@ class Pool {
     const divider = ethers.BigNumber.from("1" + "0".repeat(18))
 
     const rewardsValue = chadRewardsInYear.mul(prices.get(chadTokenAddress)).div(divider)
-    this.updateTvl(prices)
+    await this.updateTvl(prices)
     
     const rewardsValueAsNumber = parseFloat(ethers.utils.formatUnits(rewardsValue))
     const tvlAsNumber = parseFloat(this.tvl)

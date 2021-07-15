@@ -30,12 +30,19 @@ class LpToken extends Token {
     this.q1 = q1
   }
 
-  getTvl(prices: Map<string, ethers.BigNumber>): string {
+  async getTvl(prices: Map<string, ethers.BigNumber>): Promise<string> {
     const [token0Price, token1Price] = [prices.get(this.tokens[0].toLowerCase()), prices.get(this.tokens[1].toLowerCase())]
     const [token0Amount, token1Amount] = [this.q0, this.q1]
     const [token0Value, token1Value] = [token0Price.mul(token0Amount), token1Price.mul(token1Amount)]
 
     const lpTvl = token0Value.add(token1Value)
+
+    if (this.stakedOnFarm === null) {
+      const CHAD_MASTER_ADDRESS = "0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1"
+      const stakedAmount = await getTokenBalance(this.contract, CHAD_MASTER_ADDRESS)
+      this.stakedOnFarm = stakedAmount
+    }
+
     const lockedTvl = lpTvl.mul(this.stakedOnFarm).div(this.totalSupply)
     const stringifiedTvl = ethers.utils.formatUnits(lockedTvl, 36)
     

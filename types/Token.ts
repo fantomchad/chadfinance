@@ -34,19 +34,32 @@ class Token {
       this.tokens = tokens
   }
 
-  getTvl(prices: Map<string, ethers.BigNumber>): string {
-    const tokenPrice = prices.get(this.tokens[0].toLowerCase())
-    const tokenAmount = this.stakedOnFarm
-    const lockedTvl = tokenPrice.mul(tokenAmount)
-    const stringifiedTvl = ethers.utils.formatUnits(lockedTvl, 36)
+  async getTvl(prices: Map<string, ethers.BigNumber>): Promise<string> {
+    const CHAD_MASTER_ADDRESS = "0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1"
+
+    let stringifiedTvl
+
+    if (this.stakedOnFarm) {
+      const tokenPrice = prices.get(this.tokens[0].toLowerCase())
+      const tokenAmount = this.stakedOnFarm
+      const lockedTvl = tokenPrice.mul(tokenAmount)
+      stringifiedTvl = ethers.utils.formatUnits(lockedTvl, 36)
+    } else {
+      const tokenPrice = prices.get(this.tokens[0].toLowerCase())
+      const tokenAmount = await getTokenBalance(this.contract, CHAD_MASTER_ADDRESS)
+      this.stakedOnFarm = tokenAmount
+      const lockedTvl = tokenPrice.mul(tokenAmount)
+      stringifiedTvl = ethers.utils.formatUnits(lockedTvl, 36)
+    }
 
     return stringifiedTvl.substring(0, stringifiedTvl.indexOf(".") + 2)
   }
 
-  async getUpdated(userWalletAddress): Promise<Token> {
+  async getUpdated(userWalletAddress: string): Promise<Token> {
     const CHAD_MASTER_ADDRESS = "0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1"
-    const updatedStakeAmount = await getTokenBalance(this.contract, CHAD_MASTER_ADDRESS)
-    const updatedBalanceInUserWallet =  await getTokenBalance(this.contract, userWalletAddress)
+    const promiseResults = await Promise.all([getTokenBalance(this.contract, CHAD_MASTER_ADDRESS), getTokenBalance(this.contract, userWalletAddress)])
+    const updatedStakeAmount = promiseResults[0]
+    const updatedBalanceInUserWallet = promiseResults[1]
 
     return new Token(
       this.address, 

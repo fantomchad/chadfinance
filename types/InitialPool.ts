@@ -18,14 +18,12 @@ class InitialPool {
     this.fee = fee
   }
 
-  toPool(userWalletAddress: string, prices: Map<string, ethers.BigNumber>): Pool {
+  toPool(): Pool {
     return new Pool(
       this.stakedToken,
       this.allocationPoints,
       this.pid,
       this.fee,
-      userWalletAddress,
-      prices,
       this.masterChad
     )
   }

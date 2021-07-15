@@ -2,12 +2,14 @@ import Head from 'next/head'
 import tw from 'twin.macro'
 import HeroSection from '../components/pages/home/hero'
 import Link from "next/link"
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 
 import Nav from '../components/nav'
 import Button from '../components/button'
 import SocialIcon from '../components/social'
-import { useWeb3React } from '@web3-react/core';
+import { useWeb3React } from '@web3-react/core'
+import FarmsContext from '../context/FarmsContext'
+import Pool from '../types/Pool';
 
 
 export default function Home() {

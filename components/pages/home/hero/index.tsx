@@ -2,10 +2,35 @@ import tw from "twin.macro"
 import Counter from "../counter"
 import SocialIcon from "../../../social"
 import { ethers } from "ethers"
-import { useState } from "react"
+import { useState, useContext, useEffect } from "react"
+import FarmsContext from "../../../../context/FarmsContext"
 
 function HeroSection() {
+    const { lpFarms, singleStakeFarms, prices } = useContext(FarmsContext)
     const [chadBurnt, setChadBurnt] = useState("loading")
+    const [tvl, setTvl] = useState("loading")
+  
+    useEffect(() => {
+        calculateTvl()
+        getChadBurnt()
+    }, [lpFarms, singleStakeFarms, prices])
+
+    const calculateTvl = async () => {
+      if (lpFarms && singleStakeFarms && prices) {
+        console.log("LPF", lpFarms)
+        console.log("SSF", singleStakeFarms)
+        console.log("PRI", prices)
+  
+        const lpTokens = lpFarms.map(f => f.pool.stakedToken)
+        const singleTokens = singleStakeFarms.map(f => f.pool.stakedToken)
+        const allTokens = [...lpTokens, ...singleTokens]
+  
+        const tvls = await Promise.all(allTokens.map(token => token.getTvl(prices)))
+        const totalTvl = tvls.reduce((sum, tvl) => parseFloat(tvl) + sum, 0)
+  
+        setTvl(totalTvl.toLocaleString('en-US', { style: 'currency', currency: 'USD'}))
+      }
+    }
 
     const getChadBurnt = async () => {
         const provider = new ethers.providers.JsonRpcProvider("https://rpc.ftm.tools")
@@ -17,7 +42,6 @@ function HeroSection() {
         setChadBurnt(chadBurtFormatted)
     }
 
-    let burn = getChadBurnt()
     return (
         <div tw="flex relative flex-1 items-center justify-center  py-12 px-24 bg-gray-300">
             <div tw="background-color[#004FCE] rounded-3xl h-full w-full font-family[tempest] py-8">
@@ -32,7 +56,7 @@ function HeroSection() {
                     <div tw="flex flex-1 items-start -ml-96">
                         <div tw="flex items-center  flex-col">
                             <span tw="text-3xl text-white">Fucking TVL</span>
-                            <Counter value="$69,420,000.00" />
+                            <Counter value={tvl} />
                             <span tw="text-3xl text-white">Fucking $Chad Burnt</span>
                             <Counter value={chadBurnt} />
                         </div>
