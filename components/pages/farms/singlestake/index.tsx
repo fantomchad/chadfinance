@@ -30,7 +30,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
-    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool.toPool(account, prices))
+    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool.toPool())
     const [depositMode, setDepositMode] = useState<boolean>()
     const [isApproved, setIsApproved] = useState(false)
     const [stakedAmount, setStakedAmount] = useState("-1")
@@ -42,7 +42,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     }, [active, account, initialPool, prices])
 
     useEffect(() => {
-        setPoolInfo(initialPool.toPool(account, prices))
+        setPoolInfo(initialPool.toPool())
     }, [])
 
     const handleNewPool = () => {
@@ -52,7 +52,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     }
 
     const updatePoolInfo = () => {
-        const pool = initialPool.toPool(account, prices)
+        const pool = initialPool.toPool()
         pool.updatePool(account, prices).then(p => {
             setPoolInfo(p)
             setPendinRewards(p.pendingRewardsForUser.toFixed(2))
