@@ -33,7 +33,7 @@ async function getInitialPoolsFromMasterChad(poolCount: number, masterContract: 
   const poolPromises = []
 
   for (let i = 0; i < poolCount; i++) {
-    poolPromises.push(await getInitialPoolInfo(i, masterContract, provider))
+    poolPromises.push(getInitialPoolInfo(i, masterContract, provider))
   }
   const poolInfos = await Promise.all(poolPromises)
 
