@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useWeb3React } from '@web3-react/core'
 import tw from 'twin.macro'
 import Nav from '../../components/nav'
@@ -15,41 +15,32 @@ import getUpdatedPrices from '../../helpers/getUpdatedPrices'
 import { ethers } from 'ethers'
 import { stakesdata } from '../../data/stakes.data'
 import farmsdata from '../../data/farms.data'
+import FarmsContext from '../../context/FarmsContext'
 
 
 const FarmPage: React.FC = () => {
     const { account } = useWeb3React()
+    const { lpFarms, singleStakeFarms, prices, initialFetchDone } = useContext(FarmsContext)
+
     const [farms, setFarms] = useState<Farm[]>(getDummyPools(farmsdata))
     const [singleFarms, setSingleFarms] = useState<Farm[]>(getDummyPools(stakesdata))
-    const [prices, setPrices] = useState<Map<string, ethers.BigNumber>>()
+    const [tokenPrices, setTokenPrices] = useState<Map<string, ethers.BigNumber>>(prices)
+    const [isStake, setStake] = useState(false)
 
     useEffect(() => {
-        if (account) {
+        if (initialFetchDone) {
             console.log("Starting to get initial pools")
-            getInitialPools().then(initialPools => {
-                console.log("Got initial pools")
+            setFarms(lpFarms)
+            setSingleFarms(singleStakeFarms)
 
-                const initialFarms = farms.map(farm => mapInitialPoolToFarm(farm, initialPools))
-                const initialSinglePools = singleFarms.map(farm => mapInitialPoolToFarm(farm, initialPools))
-                setFarms(initialFarms)
-                setSingleFarms(initialSinglePools)
+            const tokens = lpFarms.map(f => f.pool.stakedToken).concat(singleStakeFarms.map(sf => sf.pool.stakedToken))
 
-                const tokens = initialPools.map(p => p.stakedToken)
-                getUpdatedPrices(tokens).then(prices => {
-                    setPrices(prices)
-                })
+            getUpdatedPrices(tokens).then(pricesArray => {
+                setTokenPrices(pricesArray)
             })
         }
-    }, [account])
+    }, [account, initialFetchDone])
 
-    const mapInitialPoolToFarm = (farm: Farm, pools: InitialPool[]): Farm => {
-        const farmStakeToken = farm.basicInfo.lpTokenAddress.toLowerCase()
-        const farmPool = pools.find(pool => pool.stakedToken.address.toLowerCase() === farmStakeToken)
-        farm.pool = farmPool
-        return farm
-    }
-
-    const [isStake, setStake] = useState(false)
     return (
         <div tw="font-family[Tempest] min-h-screen max-h-screen">
             <Head>
