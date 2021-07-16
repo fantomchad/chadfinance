@@ -5,7 +5,8 @@ import FarmContextInterface from "../types/FarmContextInterface"
 const FarmsContext = createContext<FarmContextInterface>({
     lpFarms: null,
     singleStakeFarms: null,
-    prices: null
+    prices: null,
+    initialFetchDone: false
 })
 
 export default FarmsContext

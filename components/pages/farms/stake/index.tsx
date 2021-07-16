@@ -6,7 +6,6 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import Pool from "../../../../types/Pool"
 import BasicInfo from "../../../../types/BasicInfo"
-import InitialPool from "../../../../types/InitialPool"
 
 function numFormatter(num): string {
     if (num > 999 && num < 1000000) {
@@ -22,16 +21,16 @@ function numFormatter(num): string {
 
 interface StakeProps {
     basicInfo: BasicInfo
-    initialPool: InitialPool
+    pool: Pool
     prices: Map<string, ethers.BigNumber>
 }
 
-const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
+const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
 
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
-    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool.toPool())
+    const [poolInfo, setPoolInfo] = useState<Pool>(pool)
     const [depositMode, setDepositMode] = useState<boolean>()
     const [isApproved, setIsApproved] = useState(false)
     const [stakedAmount, setStakedAmount] = useState("-1")
@@ -40,20 +39,35 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
 
     useEffect(() => {
         handleNewPool()
-    }, [active, account, initialPool, prices])
-
+    }, [active, account, pool, prices])
+    
     const handleNewPool = () => {
-        if (initialPool && prices && prices.size > 0) {
+        setFee(pool.fee)
+        if (dataLoaded() && account) {    
+            handleApproval()
             updatePoolInfo()
+        } else if (dataLoaded()) {    
+            updatePoolWithoutUserInfo()
+            setPendinRewards("connect")
+            setStakedAmount("-1")
         }
     }
 
+    const dataLoaded = (): boolean => {
+        return pool && pool.stakedToken && prices && prices.size > 0
+    }
+
     const updatePoolInfo = () => {
-        const pool = initialPool.toPool()
-        pool.updatePool(account, prices).then(p => {
+        pool.updatePool(account, prices).then(p => {        
             setPoolInfo(p)
             setPendinRewards(p.pendingRewardsForUser.toFixed(2))
             setStakedAmount(p.usersDeposit.toFixed(2))
+        })
+    }
+
+    const updatePoolWithoutUserInfo = () => {
+        pool.updateApr(prices).then(p => {
+            setPoolInfo(pool)
         })
     }
 
@@ -202,7 +216,7 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) => {
                 }
                 {isApproved &&
                     <div tw="flex items-center justify-between text-4xl">
-                        <span>{isSet(stakedAmount) ? numFormatter(stakedAmount) : "loading"}</span>
+                        <span>{isSet(stakedAmount) ? numFormatter(stakedAmount) : account ? "loading" : "connect"}</span>
                         <div tw="flex text-5xl leading-8 text-left space-x-2 hover:text-black">
                             <div tw="flex text-white border-4 cursor-pointer border-color[#004FCE]  background-color[#004FCE] hover:color[#004FCE] hover:bg-white py-1 pl-2 pr-3 rounded-lg" onClick={() => {
                                 setToggle(true)

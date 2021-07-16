@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
         
         setPrices(priceArray)
         
-        const farmContextValue = createFarmContextValue(mappedLpFarms, mappedSingleFarms, priceArray)
+        const farmContextValue = createFarmContextValue(mappedLpFarms, mappedSingleFarms, priceArray, true)
         setFarmContext(farmContextValue)
         
         console.log("Farm context value", farmContextValue)
@@ -51,13 +51,15 @@ function MyApp({ Component, pageProps }) {
   function createFarmContextValue (
     lps: Farm[] = lpFarms, 
     singles: Farm[] = singleStakeFarms, 
-    pricesArray: Map<string, ethers.BigNumber> = prices
+    pricesArray: Map<string, ethers.BigNumber> = prices,
+    done: boolean = false
     ): FarmContextInterface {
     
-      const value: FarmContextInterface = {
+    const value: FarmContextInterface = {
       lpFarms: lps,
       singleStakeFarms: singles,
-      prices: pricesArray
+      prices: pricesArray,
+      initialFetchDone: done
     }
 
     return value

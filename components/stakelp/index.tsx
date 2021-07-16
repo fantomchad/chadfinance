@@ -67,15 +67,22 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     alert('Cannot deposit more than available')
                 } else {
                     setLoading(true)
-                    //@ts-ignore
+                    
+                    let waitForTx = true
+                    
                     let tx = await chadMasterWithSigner.deposit(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
-                    tx.wait().then(() => {
+                            .catch(e => {
+                                // error in tx. In example user denied the tx
+                                console.log(e)
+                                waitForTx = false
+                            })
+
+                    if (waitForTx) {
+                        handleTxWait(tx)
+                    } else {
                         setToggle(false)
                         setLoading(false)
-                        tx.wait().then(() => {
-                            onStake()
-                        })
-                    })
+                    }
                 }
             } else if (!isDeposit) {
                 //@ts-ignore
@@ -88,25 +95,41 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     alert('Unstake amount can\'t be less than 0')
                 }
                 else {
-                    //@ts-ignore
-                    let tx = await chadMasterWithSigner.withdraw(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
                     setLoading(true)
-                    tx.wait().then(() => {
+
+                    let waitForTx = true
+
+                    let tx = await chadMasterWithSigner.withdraw(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
+                            .catch(e => {
+                                console.log(e)
+                                waitForTx = false
+                            })
+                    
+                    if (waitForTx) {
+                        handleTxWait(tx)
+                    } else {
                         setToggle(false)
                         setLoading(false)
-                        tx.wait().then(() => {
-                            onStake()
-                        })
-                    }).catch(() => {
-                        setToggle(false)
-                        setLoading(false)
-                    })
+                    }
                 }
             }
         } else {
             alert('wallet not connected')
             setToggle(false)
         }
+    }
+
+    const handleTxWait = (tx: ethers.providers.TransactionResponse) => {
+        tx.wait().then(() => {
+            setToggle(false)
+            setLoading(false)
+            tx.wait().then(() => {
+                onStake()
+            })
+        }).catch((e) => {
+            setToggle(false)
+            setLoading(false)
+        })
     }
 
     const getDepositedAmount = async (): Promise<ethers.BigNumber> => {

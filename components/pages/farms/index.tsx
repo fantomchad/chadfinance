@@ -5,6 +5,7 @@ import { ethers } from "ethers"
 import { useEffect, useState } from 'react'
 import InitialPool from '../../../types/InitialPool'
 import Farm from '../../../types/Farm'
+import Pool from '../../../types/Pool'
 
 interface FarmsProps {
     initialFarms: Farm[]
@@ -25,7 +26,7 @@ const Farms: React.FC<FarmsProps> = ({ initialFarms, tokenPrices }) => {
             {
                 farms.map((item, index) => (
                     <div key={index}>
-                        <Stake basicInfo={item.basicInfo} initialPool={item.pool as InitialPool} prices={prices} />
+                        <Stake basicInfo={item.basicInfo} pool={item.pool as Pool} prices={prices} />
                     </div>
                 ))
             }

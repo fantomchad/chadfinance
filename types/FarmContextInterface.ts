@@ -5,6 +5,7 @@ interface FarmContextInterface {
     lpFarms: Farm[]
     singleStakeFarms: Farm[]
     prices: Map<string, ethers.BigNumber>
+    initialFetchDone: boolean
 }
 
 export default FarmContextInterface

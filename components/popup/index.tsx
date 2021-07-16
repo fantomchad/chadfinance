@@ -16,7 +16,7 @@ export function LoadingPopup({ loading, setLoading, showClosed = false }) {
         <div tw=" flex items-center background-color[rgba(0, 0, 0, 0.3)] height[100%] inset-0 z-30 width[100%]  justify-center fixed overflow-hidden">
             <div tw="relative ">
                 {showClosed && <div   >X</div>}
-                <img src={`/assets/images/loading.gif`}  alt="" onClick={() => setLoading(false)} />
+                <img tw="animate-spin h-8  w-8" src={`/assets/images/chad.png`}  alt="" onClick={() => setLoading(false)} />
             </div>
         </div>
     ) : <></>
