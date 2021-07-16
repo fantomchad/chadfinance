@@ -1,6 +1,6 @@
 import { GlobalStyles } from 'twin.macro'
 import '../styles/globals.css'
-import { Web3ReactProvider } from '@web3-react/core'
+import { Web3ReactProvider, useWeb3React } from '@web3-react/core';
 import getWeb3Provider from '../helpers/web3/getWeb3Provider'
 import FarmsContext from '../context/FarmsContext'
 import getInitialPools from '../helpers/getInitialPools'
@@ -72,16 +72,6 @@ function MyApp({ Component, pageProps }) {
     farm.pool = farmPool
     return farm
   }
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-  provider.on("network", (newNetwork, oldNetwork) => {
-    // When a Provider makes its initial connection, it emits a "network"
-    // event with a null oldNetwork along with the newNetwork. So, if the
-    // oldNetwork exists, it represents a changing network
-    if (oldNetwork) {
-      alert('OOOOOOO')
-    }
-  });
 
   return (
     <>

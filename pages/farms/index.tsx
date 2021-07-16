@@ -12,14 +12,15 @@ import Farm from '../../types/Farm'
 import InitialPool from '../../types/InitialPool'
 import getDummyPools from '../../helpers/getDummyPools'
 import getUpdatedPrices from '../../helpers/getUpdatedPrices'
-import { ethers } from 'ethers'
+import { ethers, providers } from 'ethers'
 import { stakesdata } from '../../data/stakes.data'
 import farmsdata from '../../data/farms.data'
 import FarmsContext from '../../context/FarmsContext'
+import { Provider } from '@ethersproject/providers'
 
 
 const FarmPage: React.FC = () => {
-    const { account } = useWeb3React()
+    const { account, chainId} = useWeb3React()
     const { lpFarms, singleStakeFarms, prices, initialFetchDone } = useContext(FarmsContext)
 
     const [farms, setFarms] = useState<Farm[]>(getDummyPools(farmsdata))
@@ -40,6 +41,9 @@ const FarmPage: React.FC = () => {
             })
         }
     }, [account, initialFetchDone])
+    
+
+
 
     return (
         <div tw="font-family[Tempest] min-h-screen max-h-screen">

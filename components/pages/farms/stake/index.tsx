@@ -76,7 +76,13 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
             // @ts-ignore
             handleApproval()
             handleUserStakedAmount()
-            setPendinRewards(poolInfo.pendingRewardsForUser.toFixed(2).toString())
+            if (poolInfo.pendingRewardsForUser != undefined){
+                setPendinRewards(poolInfo.pendingRewardsForUser.toFixed(2).toString())
+
+            }
+            if (poolInfo.pendingRewardsForUser == undefined){
+                console.log("ahaa")
+            }
             setFee(poolInfo.fee)
         }
     }, [poolInfo])
