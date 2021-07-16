@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps }) {
   const [lpFarms, setLpFarms] = useState(null)
   const [singleStakeFarms, setSingleStakeFarms] = useState(null)
   const [prices, setPrices] = useState(null)
-  
+
   const [farmContext, setFarmContext] = useState<FarmContextInterface>(createFarmContextValue())
-  
+
   useEffect(() => {
     getInitialPools().then(initialPools => {
       console.log("Got initial pools")
@@ -34,27 +34,27 @@ function MyApp({ Component, pageProps }) {
         const pools = initialPools.map(ip => ip.toPool())
         const mappedLpFarms = dummyLpFarms.map(farm => mapInitialPoolToFarm(farm, pools))
         const mappedSingleFarms = dummySingleFarms.map(farm => mapInitialPoolToFarm(farm, pools))
-        
+
         setLpFarms(mappedLpFarms)
         setSingleStakeFarms(mappedSingleFarms)
-        
+
         setPrices(priceArray)
-        
+
         const farmContextValue = createFarmContextValue(mappedLpFarms, mappedSingleFarms, priceArray, true)
         setFarmContext(farmContextValue)
-        
+
         console.log("Farm context value", farmContextValue)
       })
     })
   }, [])
 
-  function createFarmContextValue (
-    lps: Farm[] = lpFarms, 
-    singles: Farm[] = singleStakeFarms, 
+  function createFarmContextValue(
+    lps: Farm[] = lpFarms,
+    singles: Farm[] = singleStakeFarms,
     pricesArray: Map<string, ethers.BigNumber> = prices,
     done: boolean = false
-    ): FarmContextInterface {
-    
+  ): FarmContextInterface {
+
     const value: FarmContextInterface = {
       lpFarms: lps,
       singleStakeFarms: singles,
@@ -73,8 +73,18 @@ function MyApp({ Component, pageProps }) {
     return farm
   }
 
+  const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
+  provider.on("network", (newNetwork, oldNetwork) => {
+    // When a Provider makes its initial connection, it emits a "network"
+    // event with a null oldNetwork along with the newNetwork. So, if the
+    // oldNetwork exists, it represents a changing network
+    if (oldNetwork) {
+      alert('OOOOOOO')
+    }
+  });
+
   return (
-    <> 
+    <>
       <Web3ReactProvider getLibrary={getWeb3Provider}>
         <GlobalStyles />
         <FarmsContext.Provider value={farmContext}>

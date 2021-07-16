@@ -11,12 +11,25 @@ export default function Popup({ children, toggle, setToggle, showClosed = false 
     ) : <></>
 }
 
-export function LoadingPopup({ loading, setLoading, showClosed = false }) {
+export function LoadingPopup({ loading, setLoading}) {
     return loading ? (
-        <div tw=" flex items-center background-color[rgba(0, 0, 0, 0.3)] height[100%] inset-0 z-30 width[100%]  justify-center fixed overflow-hidden">
-            <div tw="relative ">
-                {showClosed && <div   >X</div>}
-                <img tw="animate-spin h-8  w-8" src={`/assets/images/chad.png`}  alt="" onClick={() => setLoading(false)} />
+        <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[100%]  z-30 width[100%]  justify-center ">
+            <div tw="relative flex flex-col items-center justify-center w-full bg-black bg-opacity-80 rounded-xl h-full">
+                 <div tw="absolute top-2 right-2 text-white text-3xl p-2  border border-white leading-3 text-center cursor-pointer"  onClick={() => setLoading(false)}>X</div>
+                <img tw="animate-spin" src={`/assets/images/chad.png`}  alt="" />
+                < span tw="text-white mt-4 text-2xl animate-bounce" >Chading Up...</span>
+            </div>
+        </div>
+    ) : <></>
+}
+
+export function WrongNetworkPopup({ loading, setLoading}) {
+    return loading ? (
+        <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[150%]  z-30 width[150%]  justify-center ">
+            <div tw="relative flex flex-col items-center justify-center w-full bg-black bg-opacity-80 rounded-xl h-full">
+                 <div tw="absolute top-2 right-2 text-white text-3xl p-2  border border-white leading-3 text-center cursor-pointer"  onClick={() => setLoading(false)}>X</div>
+                <img src={`/assets/images/chad2.svg`}  alt="" />
+                < span  tw="text-black mt-4 text-3xl ">Switch to Fantom Network</span>
             </div>
         </div>
     ) : <></>
