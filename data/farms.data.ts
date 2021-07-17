@@ -142,9 +142,18 @@ const farmsdata: BasicInfo[] = [
         second: "ftm",
         approved: false,
         earn: "Chad",
-        pid: 19,
+        pid: 20,
         lpTokenAddress: "0x6680B936216e770605E43E7214e5838E2803f514",
+    },
+    {
+        first: "casper",
+        second: "chad",
+        approved: false,
+        earn: "Chad",
+        pid: 21,
+        lpTokenAddress: "0x4171DE2115DBCe3a9064a5d6D0255b274FDC0B25",
     }
+
     
 ]
 
