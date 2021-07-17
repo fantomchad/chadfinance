@@ -41,15 +41,33 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
         handleNewPool()
     }, [active, account, initialPool, prices])
 
+    const dataLoaded = (): boolean => {
+        return initialPool && initialPool.stakedToken && prices && prices.size > 0
+    }
+
+    const updatePoolWithoutUserInfo = () => {
+        initialPool.updateApr(prices).then(p => {
+            setPoolInfo(initialPool)
+        })
+    }
+
+    const handleNewPool = () => {
+        setFee(initialPool.fee)
+        if (dataLoaded() && account) {    
+            handleApproval()
+            updatePoolInfo()
+        } else if (dataLoaded()) {    
+            updatePoolWithoutUserInfo()
+            setPendinRewards("connect")
+            setStakedAmount("-1")
+        }
+    }
+
     useEffect(() => {
         setPoolInfo(initialPool)
     }, [])
 
-    const handleNewPool = () => {
-        if (initialPool && prices && prices.size > 0) {
-            updatePoolInfo()
-        }
-    }
+
 
     const updatePoolInfo = () => {
         initialPool.updatePool(account, prices).then(p => {
@@ -64,7 +82,13 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
             // @ts-ignore
             handleApproval()
             handleUserStakedAmount()
-            setPendinRewards(poolInfo.pendingRewardsForUser.toFixed(2).toString())
+            if (poolInfo.pendingRewardsForUser != undefined){
+                setPendinRewards(poolInfo.pendingRewardsForUser.toFixed(2).toString())
+
+            }
+            if (poolInfo.pendingRewardsForUser == undefined){
+                console.log("ahaa")
+            }
             setFee(poolInfo.fee)
         }
     }, [poolInfo])
