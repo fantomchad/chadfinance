@@ -10,9 +10,13 @@ import SocialIcon from '../components/social'
 import { useWeb3React } from '@web3-react/core'
 import FarmsContext from '../context/FarmsContext'
 import Pool from '../types/Pool';
+import { BetaPopup } from '../components/popup';
+import {useState} from 'react';
 
 
 export default function Home() {
+  const [toggle, setToggle] = useState(true)
+
   return (
     <div tw="font-family[Tempest] min-h-screen max-h-screen">
       <Head>
@@ -63,6 +67,7 @@ export default function Home() {
           </div>
           <SocialIcon />
         </div>
+        <BetaPopup setToggle={setToggle} toggle={toggle} />
 
       </div>
     </div>

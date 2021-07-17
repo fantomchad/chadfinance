@@ -51,3 +51,17 @@ export function WrongNetworkPopup({ loading, setLoading}) {
         </div>
     ) : <></>
 }
+
+
+export function BetaPopup({ toggle, setToggle} ) {
+    return toggle ? (
+        <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[100%]  z-30 width[100%]  justify-center ">
+            <div tw="relative flex flex-col items-center justify-center w-full bg-black bg-opacity-80 rounded-xl h-full">
+                 <div tw="absolute top-2 right-2 text-white text-3xl p-2  border border-white leading-3 text-center cursor-pointer"  onClick={() => setToggle(false)}>X</div>
+                <img src={`/assets/images/chad.png`}  alt="" />
+                < span tw="text-white mt-4 text-base text-center" >Website is still in beta phase. Please report bugs in our discord. </span>
+                < span tw="text-white mt-4 text-base text-center" >proceed at your own risk</span>
+            </div>
+        </div>
+    ) : <></>
+}

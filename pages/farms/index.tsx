@@ -17,6 +17,7 @@ import { stakesdata } from '../../data/stakes.data'
 import farmsdata from '../../data/farms.data'
 import FarmsContext from '../../context/FarmsContext'
 import { Provider } from '@ethersproject/providers'
+import { BetaPopup } from '../../components/popup'
 
 
 const FarmPage: React.FC = () => {
@@ -27,6 +28,8 @@ const FarmPage: React.FC = () => {
     const [singleFarms, setSingleFarms] = useState<Farm[]>(getDummyPools(stakesdata))
     const [tokenPrices, setTokenPrices] = useState<Map<string, ethers.BigNumber>>(prices)
     const [isStake, setStake] = useState(false)
+
+    const [toggle, setToggle] = useState(true)
 
     useEffect(() => {
         if (initialFetchDone) {
@@ -47,6 +50,8 @@ const FarmPage: React.FC = () => {
 
     return (
         <div tw="font-family[Tempest] min-h-screen max-h-screen">
+                    <BetaPopup setToggle={setToggle} toggle={toggle} />
+
             <Head>
                 <title>Farms | Chad Finance</title>
                 <meta name="description" content="Chad Finance" />
