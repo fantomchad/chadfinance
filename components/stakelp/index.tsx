@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import { ConstructorFragment } from "ethers/lib/utils"
-import { LoadingPopup } from "../popup"
+import { LoadingPopup, TransactionConfirmedPopup } from "../popup"
 import { useState, useEffect } from "react"
 import Farm from "../../types/Farm"
 import Pool from "../../types/Pool"
@@ -21,6 +21,7 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
     const { account, active } = useWeb3React()
 
     const [loading, setLoading] = useState(false)
+    const [txConfirmed, SetTxConfirmed] = useState(false)
     const [inputAmount, setInputAmount] = useState<string>()
     const [tokensAvailable, setTokensAvailable] = useState("loading")
     const [tokensStaked, setTokensStaked] = useState("loading")
@@ -43,7 +44,7 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
         console.log('withdrawMode')
         popupMessage = "fucking shame..."
     }
-    
+
     const chadMaster = '0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1'
     const chadMasterABI = [{ "inputs": [{ "internalType": "contract ChadFinanceToken", "name": "_CHAD", "type": "address" }, { "internalType": "address", "name": "_devaddr", "type": "address" }, { "internalType": "address", "name": "_feeAddress", "type": "address" }, { "internalType": "uint256", "name": "_ChadPerBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_startBlock", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "EmergencyWithdraw", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Withdraw", "type": "event" }, { "inputs": [], "name": "BONUS_MULTIPLIER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "CHAD", "outputs": [{ "internalType": "contract ChadFinanceToken", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "ChadPerBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_allocPoint", "type": "uint256" }, { "internalType": "contract IBEP20", "name": "_lpToken", "type": "address" }, { "internalType": "uint16", "name": "_depositFeeBP", "type": "uint16" }, { "internalType": "bool", "name": "_withUpdate", "type": "bool" }], "name": "add", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "deposit", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_devaddr", "type": "address" }], "name": "dev", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "devaddr", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }], "name": "emergencyWithdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "feeAddress", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_from", "type": "uint256" }, { "internalType": "uint256", "name": "_to", "type": "uint256" }], "name": "getMultiplier", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "massUpdatePools", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "address", "name": "_user", "type": "address" }], "name": "pendingChad", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "name": "poolInfo", "outputs": [{ "internalType": "contract IBEP20", "name": "lpToken", "type": "address" }, { "internalType": "uint256", "name": "allocPoint", "type": "uint256" }, { "internalType": "uint256", "name": "lastRewardBlock", "type": "uint256" }, { "internalType": "uint256", "name": "accChadPerShare", "type": "uint256" }, { "internalType": "uint16", "name": "depositFeeBP", "type": "uint16" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "poolLength", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_allocPoint", "type": "uint256" }, { "internalType": "uint16", "name": "_depositFeeBP", "type": "uint16" }, { "internalType": "bool", "name": "_withUpdate", "type": "bool" }], "name": "set", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_feeAddress", "type": "address" }], "name": "setFeeAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "startBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalAllocPoint", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_ChadPerBlock", "type": "uint256" }], "name": "updateEmissionRate", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }], "name": "updatePool", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }, { "internalType": "address", "name": "", "type": "address" }], "name": "userInfo", "outputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "rewardDebt", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
     const chadMasterContract = new ethers.Contract(chadMaster, chadMasterABI, provider);
@@ -70,21 +71,26 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     alert('Cannot deposit more than available')
                 } else {
                     setLoading(true)
-                    
+
                     let waitForTx = true
-                    
+
                     let tx = await chadMasterWithSigner.deposit(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
-                            .catch(e => {
-                                // error in tx. In example user denied the tx
-                                console.log(e)
-                                waitForTx = false
-                            })
+                        .catch(e => {
+                            // error in tx. In example user denied the tx
+                            console.log(e)
+                            waitForTx = false
+                        })
 
                     if (waitForTx) {
                         handleTxWait(tx)
                     } else {
+                        alert("Transaction Confirmed, if values do not automatically update please refresh the page.")
+
                         setToggle(false)
                         setLoading(false)
+                        alert("Transaction Confirmed, if values do not automatically update please refresh the page.")
+
+                        SetTxConfirmed(true)
                     }
                 }
             } else if (!isDeposit) {
@@ -103,16 +109,20 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     let waitForTx = true
 
                     let tx = await chadMasterWithSigner.withdraw(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
-                            .catch(e => {
-                                console.log(e)
-                                waitForTx = false
-                            })
-                    
+                        .catch(e => {
+                            console.log(e)
+                            waitForTx = false
+                        })
+
                     if (waitForTx) {
                         handleTxWait(tx)
                     } else {
+                        alert("Transaction Confirmed, if values do not automatically update please refresh the page.")
+
                         setToggle(false)
                         setLoading(false)
+                        SetTxConfirmed(true)
+
                     }
                 }
             }
@@ -138,7 +148,7 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
     const getDepositedAmount = async (): Promise<ethers.BigNumber> => {
         const userInfo = await chadMasterContract.userInfo(basicInfo.pid, account)
         const usersDeposit: ethers.BigNumber = userInfo.amount
-    
+
         return usersDeposit
     }
 
@@ -160,9 +170,9 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     </div>
                 </div>
                 <div tw="text-white text-right mt-2">
-                    {active ? 
-                    <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first}-{basicInfo.second} {isDeposit ? "LP available" : "staked"}</span> :
-                    <span id="lpBalance">wallet Not Connected</span>}
+                    {active ?
+                        <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first}-{basicInfo.second} {isDeposit ? "LP available" : "staked"}</span> :
+                        <span id="lpBalance">wallet Not Connected</span>}
                 </div>
             </div>
             <div tw="flex items-center justify-center cursor-pointer text-white fill-current hover:text-black">
@@ -182,7 +192,8 @@ const StakeLp: React.FC<StakeLpProps> = ({ toggle, setToggle, pool, basicInfo, o
                     Confirm
                 </div>
             </div>
-            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage}/>
+            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage} />
+            <TransactionConfirmedPopup setLoading={SetTxConfirmed} loading={txConfirmed} />
 
         </div>
     )

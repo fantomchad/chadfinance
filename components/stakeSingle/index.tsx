@@ -2,7 +2,7 @@ import tw from "twin.macro"
 import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import { useEffect, useState } from "react"
-import { LoadingPopup } from "../popup"
+import { LoadingPopup, TransactionConfirmedPopup } from "../popup"
 import Pool from "../../types/Pool"
 import BasicInfo from "../../types/BasicInfo"
 
@@ -19,17 +19,19 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
     const { account, active } = useWeb3React()
 
     const [loading, setLoading] = useState(false)
+    const [confirmedTx, setconfirmedTx] = useState(false)
     const [inputAmount, setInputAmount] = useState<string>()
     const [tokensAvailable, setTokensAvailable] = useState("loading")
     const [tokensStaked, setTokensStaked] = useState("loading")
     let popupMessage = ""
+
 
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
 
     useEffect(() => {
-        setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))     
+        setTokensAvailable(ethers.utils.formatUnits(pool.stakedToken.balanceInUserWallet))
         handleTokensStaked()
     }, [pool])
 
@@ -60,6 +62,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
 
     const depositLP = async () => {
         if (active) {
+
             const chadMasterWithSigner = chadMasterContract.connect(signer)
             if (isDeposit) {
                 //@ts-ignore
@@ -73,6 +76,13 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                         setToggle(false)
                         setLoading(false)
                         tx.wait().then(() => {
+                            setTimeout(function () {
+                                alert("Transaction Confirmed, if values do not automatically update please refresh the page.")
+                                setTimeout(function () {
+                                    setconfirmedTx(true)
+                                }, 1000)
+                            }, 1000)
+
                             onStake()
                         })
                     })
@@ -92,15 +102,21 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     //@ts-ignore
                     let tx = await chadMasterWithSigner.withdraw(basicInfo.pid, ethers.utils.parseUnits(inputAmount, 18))
                     setLoading(true)
+
                     tx.wait().then(() => {
                         setToggle(false)
                         setLoading(false)
+                        setconfirmedTx(true)
+                        alert("Transaction Confirmed, if values do not automatically update please refresh the page.")
+
                         tx.wait().then(() => {
                             onStake()
+
                         })
                     }).catch(() => {
                         setToggle(false)
                         setLoading(false)
+
                     })
                 }
             }
@@ -113,7 +129,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
     const getDepositedAmount = async (): Promise<ethers.BigNumber> => {
         const userInfo = await chadMasterContract.userInfo(basicInfo.pid, account)
         const usersDeposit: ethers.BigNumber = userInfo.amount
-    
+
         return usersDeposit
     }
 
@@ -136,9 +152,9 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     </div>
                 </div>
                 <div tw="text-white text-right mt-2">
-                    {active ? 
-                    <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first} {isDeposit ? "available" : "staked"}</span> :
-                    <span id="lpBalance">wallet Not Connected</span>}
+                    {active ?
+                        <span id="lpinfo">{isDeposit ? parseFloat(tokensAvailable).toFixed(2) : parseFloat(tokensStaked).toFixed(2)} {basicInfo.first} {isDeposit ? "available" : "staked"}</span> :
+                        <span id="lpBalance">wallet Not Connected</span>}
                 </div>
             </div>
             <div tw="flex items-center justify-center cursor-pointer text-white fill-current hover:text-black">
@@ -158,7 +174,9 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     Confirm
                 </div>
             </div>
-            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage}/>
+            <TransactionConfirmedPopup setLoading={setconfirmedTx} loading={confirmedTx} />
+
+            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage} />
 
         </div>
     )

@@ -25,6 +25,21 @@ export function LoadingPopup({ loading, setLoading, message} ) {
     ) : <></>
 }
 
+
+
+export function TransactionConfirmedPopup({ loading, setLoading} ) {
+
+    return loading ? (
+        <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[100%]  z-30 width[100%]  justify-center ">
+            <div tw="relative flex flex-col items-center justify-center w-full bg-black bg-opacity-80 rounded-xl h-full">
+                 <div tw="absolute top-2 right-2 text-white text-3xl p-2  border border-white leading-3 text-center cursor-pointer"  onClick={() => setLoading(false)}>X</div>
+                < span tw="text-white mt-4 text-lg text-center" >Transaction confirmed.</span>
+                < span tw="text-white mt-4 text-base text-center" >Please reload page if stats do not update automatically.</span>
+            </div>
+        </div>
+    ) : <></>
+}
+
 export function WrongNetworkPopup({ loading, setLoading}) {
     return loading ? (
         <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[150%]  z-30 width[150%]  justify-center ">
