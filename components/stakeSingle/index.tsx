@@ -22,6 +22,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
     const [inputAmount, setInputAmount] = useState<string>()
     const [tokensAvailable, setTokensAvailable] = useState("loading")
     const [tokensStaked, setTokensStaked] = useState("loading")
+    let popupMessage = ""
 
     //@ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -34,8 +35,10 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
 
     if (isDeposit) {
         console.log('depositMode')
+        popupMessage = "chading up..."
     } else {
         console.log('withdrawMode')
+        popupMessage = "fucking shame..."
     }
 
     const chadMaster = '0xDA094Ee6bDaf65c911f72FEBfC58002e5e2656d1'
@@ -155,7 +158,7 @@ const StakeSingle: React.FC<StakesingleProps> = ({ toggle, setToggle, pool, basi
                     Confirm
                 </div>
             </div>
-            <LoadingPopup setLoading={setLoading} loading={loading} />
+            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage}/>
 
         </div>
     )

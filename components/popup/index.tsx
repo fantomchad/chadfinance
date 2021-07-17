@@ -11,13 +11,15 @@ export default function Popup({ children, toggle, setToggle, showClosed = false 
     ) : <></>
 }
 
-export function LoadingPopup({ loading, setLoading}) {
+export function LoadingPopup({ loading, setLoading, message} ) {
+    console.log('pop', message)
+
     return loading ? (
         <div tw="absolute flex  items-center justify-center p-8 inset-0 -top-8 height[100%]  z-30 width[100%]  justify-center ">
             <div tw="relative flex flex-col items-center justify-center w-full bg-black bg-opacity-80 rounded-xl h-full">
                  <div tw="absolute top-2 right-2 text-white text-3xl p-2  border border-white leading-3 text-center cursor-pointer"  onClick={() => setLoading(false)}>X</div>
                 <img tw="animate-spin" src={`/assets/images/chad.png`}  alt="" />
-                < span tw="text-white mt-4 text-2xl animate-bounce" >Chading Up...</span>
+                < span tw="text-white mt-4 text-2xl animate-bounce" >{message}</span>
             </div>
         </div>
     ) : <></>

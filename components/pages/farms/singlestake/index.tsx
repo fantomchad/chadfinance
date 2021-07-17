@@ -22,7 +22,7 @@ function numFormatter(num): string {
 
 interface StakeProps {
     basicInfo: BasicInfo
-    initialPool: InitialPool
+    initialPool: Pool
     prices: Map<string, ethers.BigNumber>
 }
 
@@ -30,7 +30,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     const { account, active } = useWeb3React()
 
     const [toggle, setToggle] = useState(false)
-    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool.toPool())
+    const [poolInfo, setPoolInfo] = useState<Pool>(initialPool)
     const [depositMode, setDepositMode] = useState<boolean>()
     const [isApproved, setIsApproved] = useState(false)
     const [stakedAmount, setStakedAmount] = useState("-1")
@@ -42,7 +42,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     }, [active, account, initialPool, prices])
 
     useEffect(() => {
-        setPoolInfo(initialPool.toPool())
+        setPoolInfo(initialPool)
     }, [])
 
     const handleNewPool = () => {
@@ -52,8 +52,7 @@ const SingleStake: React.FC<StakeProps> = ({ basicInfo, initialPool, prices }) =
     }
 
     const updatePoolInfo = () => {
-        const pool = initialPool.toPool()
-        pool.updatePool(account, prices).then(p => {
+        initialPool.updatePool(account, prices).then(p => {
             setPoolInfo(p)
             setPendinRewards(p.pendingRewardsForUser.toFixed(2))
             setStakedAmount(p.usersDeposit.toFixed(2))
