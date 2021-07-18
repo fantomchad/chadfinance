@@ -11,7 +11,8 @@ const getDummyPools = (farmsData): Farm[] => {
               approved: farm.approved,
               earn: farm.earn,
               pid: farm.pid,
-              lpTokenAddress: farm.lpTokenAddress
+              lpTokenAddress: farm.lpTokenAddress,
+              getLP: farm.getLP
           },
           pool: new InitialPool(null, -1, farm.pid, -1, null)
       })

@@ -4,7 +4,8 @@ interface BasicInfo {
   approved: false
   earn: string
   pid: number
-  lpTokenAddress: string
+  lpTokenAddress: string,
+  getLP
 }
 
 export default BasicInfo
