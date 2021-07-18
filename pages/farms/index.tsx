@@ -63,7 +63,9 @@ const FarmPage: React.FC = () => {
                     crossOrigin=""
                 />
             </Head>
-
+            <div tw="absolute right-6 top-32 hidden md:block">
+                <SocialIcon />
+            </div>
             <div tw="background-color[#004FCE]">
                 <Nav />
 
@@ -75,6 +77,7 @@ const FarmPage: React.FC = () => {
 
                         {/* Buttons */}
                         <div tw="flex background-color[#004FCE] border-2 border-blue-300 rounded-lg md:p-1 md:text-3xl mt-8">
+
                             <div css={[
                                 tw`px-6 py-1  rounded cursor-pointer`,
                                 !isStake && tw`bg-white`
