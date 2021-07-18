@@ -6,6 +6,7 @@ import { useWeb3React } from '@web3-react/core'
 import { ethers, providers } from "ethers"
 import Pool from "../../../../types/Pool"
 import BasicInfo from "../../../../types/BasicInfo"
+import { LoadingPopup } from "../../../popup"
 
 function numFormatter(num): string {
     if (num > 999 && num < 1000000) {
@@ -36,6 +37,10 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
     const [stakedAmount, setStakedAmount] = useState("-1")
     const [pendingRewards, setPendinRewards] = useState("-1")
     const [fee, setFee] = useState(-1)
+
+    const [loading, setLoading] = useState(false)
+    const popupMessage = "Harvesting Chad"
+
 
     useEffect(() => {
         handleNewPool()
@@ -127,11 +132,12 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
             const chadMasterContract = new ethers.Contract(chadMaster, chadMasterABI, provider);
             const chadMasterWithSigner = chadMasterContract.connect(signer)
             let tx = await chadMasterWithSigner.deposit(basicInfo.pid, 0)
-            
+            setLoading(true)
             tx.wait().then(async () => {
                 await poolInfo.updatePool(account, prices)
                 setPoolInfo(poolInfo)
                 console.log('tx confirmed, updating farms')
+                setLoading(false)
             })
         }
     }
@@ -165,7 +171,9 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
 
     return (
 
+
         <div tw="flex  flex-col justify-evenly flex-grow md:flex-grow-0 width[330px] md:width[350px] md:height[520px]  border-width[6px] bg-white border-color[#004FCE] space-y-2 box-shadow[0px 0px 9px 3px rgba(0,0,0,0.75)] px-4 py-4 rounded-3xl mb-16">
+
             {/* Farm Logos  */}
             <div tw="flex items-center justify-center">
                 <div tw="flex items-center ">
@@ -243,6 +251,9 @@ const Stake: React.FC<StakeProps> = ({ basicInfo, pool, prices }) => {
             <Popup toggle={toggle} setToggle={setToggle}>
                 <StakeLp setToggle={setToggle} pool={poolInfo} basicInfo={basicInfo} isDeposit={depositMode} toggle={toggle} onStake={updatePoolInfo} />
             </Popup>
+            <LoadingPopup setLoading={setLoading} loading={loading} message={popupMessage} />
+
+
         </div>
 
     )
